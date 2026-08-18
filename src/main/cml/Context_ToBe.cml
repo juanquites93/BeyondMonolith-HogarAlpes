@@ -1,0 +1,231 @@
+/*
+ * HOGAR DE LOS ALPES - CONTEXT MAP TO-BE
+ 
+ * Arquitectura - objetivos principales:
+ * - Contextos acotados desacoplados.
+ * - Arquitectura distribuida.
+ * - Integración mediante eventos cuando el proceso no requiere respuesta inmediata.
+ * - Ownership de datos por contextos acotados
+ */
+
+ContextMap HogarDeLosAlpes_TO_BE {
+    type = SYSTEM_LANDSCAPE
+    state = TO_BE
+
+
+    // CONTEXTOS ACOTADOS
+
+    contains GestionDeTrabajos
+    contains DiagnosticoYAdmision
+    contains MarketplaceYAsignacion
+    contains Proveedores
+    contains AcreditacionYCumplimiento
+    contains GestionDeCotizaciones
+    contains OrquestacionDeWorkflows
+    contains EjecucionYSeguimiento
+    contains SiniestrosYOperacionB2B2C
+    contains PagosYLiquidaciones
+    contains CalidadGarantiasYDisputas
+    contains FintechWalletYCredito
+    contains AlianzasEIntegracionesB2B2C
+
+
+    // DIAGNÓSTICO Y ADMISIÓN → GESTIÓN DE TRABAJOS
+   
+
+    GestionDeTrabajos [D,C] <- [U,S] DiagnosticoYAdmision {
+        implementationTechnology = "REST API + Domain Events"
+    }
+
+
+    // PARTNERS B2B2C → INTEGRACIONES 
+
+    AlianzasEIntegracionesB2B2C [D,ACL] <- [U,OHS,PL] SiniestrosYOperacionB2B2C {
+        implementationTechnology = "REST/HTTPS + Domain Events"
+    }
+
+
+    //SINIESTROS Y OPERACIÓN → GESTIÓN DE TRABAJOS
+   
+    GestionDeTrabajos [D,C] <- [U,S] SiniestrosYOperacionB2B2C {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    //GESTIÓN DE TRABAJOS → ORQUESTACIÓN DE WORKFLOWS
+
+    OrquestacionDeWorkflows [D,C] <- [U,S] GestionDeTrabajos {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    //ORQUESTACION DE WORKFLOWS → MARKETPLACE Y ASIGNACION
+  
+    MarketplaceYAsignacion[D,C] <- [U,S] OrquestacionDeWorkflows {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    // MARKETPLACE Y MATCHING → PROVEEDORES
+
+    MarketplaceYAsignacion[D,C] <- [U,S] Proveedores {
+        implementationTechnology = "REST API + Domain Events"
+    }
+
+
+    //PROVEEDORES → ACREDITACIÓN Y CUMPLIMIENTO
+
+    AcreditacionYCumplimiento [D,C] <- [U,S] Proveedores {
+        implementationTechnology = "REST API + Domain Events"
+    }
+
+
+    //ACREDITACIÓN Y CUMPLIMIENTO → MARKETPLACE Y ASIGNACION
+
+    MarketplaceYAsignacion [D] <- [U,OHS,PL] AcreditacionYCumplimiento {
+        implementationTechnology = "Published Domain Events"
+    }
+
+
+    //MARKETPLACE Y MATCHING → COTIZACIONES
+
+    GestionDeCotizaciones [D,C] <- [U,S] MarketplaceYAsignacion {
+        implementationTechnology = "REST API + Domain Events"
+    }
+
+
+    // GESTION DE COTIZACIONES → GESTIÓN DE TRABAJOS
+     
+
+    GestionDeTrabajos [D,C] <- [U,S] GestionDeCotizaciones {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    // ORQUESTACIÓN DE WORKFLOWS → EJECUCIÓN Y SEGUIMIENTO
+      
+    EjecucionYSeguimiento [D,C] <- [U,S] OrquestacionDeWorkflows {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    // EJECUCIÓN Y SEGUIMIENTO → GESTIÓN DE TRABAJOS
+    
+
+    GestionDeTrabajos [D,C] <- [U,S] EjecucionYSeguimiento {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    //EJECUCIÓN Y SEGUIMIENTO → CALIDAD
+
+    CalidadGarantiasYDisputas [D,C] <- [U,S] EjecucionYSeguimiento {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    //CALIDAD → MARKETPLACE Y MATCHING
+
+    MarketplaceYAsignacion[D] <- [U,OHS,PL] CalidadGarantiasYDisputas {
+        implementationTechnology = "Published Domain Events"
+    }
+
+
+    // GESTIÓN DE TRABAJOS → PAGOS Y LIQUIDACIONES
+
+    PagosYLiquidaciones [D,C] <- [U,S] GestionDeTrabajos {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    //SINIESTROS Y OPERACIÓN → PAGOS Y LIQUIDACIONES
+    
+
+    PagosYLiquidaciones [D,C] <- [U,S] SiniestrosYOperacionB2B2C {
+        implementationTechnology = "Domain Events"
+    }
+
+
+    //PAGOS Y LIQUIDACIONES → FINTECH, WALLET Y CRÉDITO
+
+    FintechWalletYCredito [D,C] <- [U,S] PagosYLiquidaciones {
+        implementationTechnology = "REST API + Domain Events"
+    }
+
+
+    //PROVEEDORES → FINTECH, WALLET Y CRÉDITO
+    
+    FintechWalletYCredito [D,C] <- [U,S] Proveedores {
+        implementationTechnology = "REST API + Domain Events"
+    }
+
+}
+
+
+// DEFINICION CONTEXTOS ACOTADOS
+ 
+BoundedContext GestionDeTrabajos {
+    domainVisionStatement =
+        "Gestionar el ciclo de vida de los trabajos desde su creación hasta su cierre, manteniendo su estado, categoría, ubicación, urgencia y evolución."
+}
+
+BoundedContext DiagnosticoYAdmision {
+    domainVisionStatement =
+        "Transformar la necesidad expresada por un cliente o partner en una solicitud de trabajo estructurada mediante diagnóstico, categorización, urgencia, ubicación y evidencias."
+}
+
+BoundedContext MarketplaceYAsignacion {
+    domainVisionStatement =
+        "Conectar trabajos con proveedores elegibles según categoría, ubicación, disponibilidad, acreditación y reglas de negocio."
+}
+
+BoundedContext Proveedores {
+    domainVisionStatement =
+        "Gestionar el ciclo de vida de los proveedores de servicios, incluyendo registro, servicios ofrecidos, cobertura geográfica y participación en la plataforma."
+}
+
+BoundedContext AcreditacionYCumplimiento {
+    domainVisionStatement =
+        "Determinar si los proveedores y las personas que prestan servicios cumplen los requisitos de seguridad, documentación, certificación, homologación y vigencia."
+}
+
+BoundedContext GestionDeCotizaciones {
+    domainVisionStatement =
+        "Gestionar la solicitud, recepción, evaluación y selección de cotizaciones, incluyendo visitas, información adicional, cambios de alcance y re-cotizaciones."
+}
+
+BoundedContext OrquestacionDeWorkflows {
+    domainVisionStatement =
+        "Determinar y coordinar el flujo operativo de cada trabajo, incluyendo actividades secuenciales, paralelas, bloqueantes, aprobaciones y reacciones ante eventos."
+}
+
+BoundedContext EjecucionYSeguimiento {
+    domainVisionStatement =
+        "Coordinar y registrar la ejecución de los trabajos, manteniendo progreso, novedades, evidencias, visitas y estados hasta su finalización."
+}
+
+BoundedContext SiniestrosYOperacionB2B2C {
+    domainVisionStatement =
+        "Gestionar trabajos originados por aseguradoras, bancos y comercios aplicando sus reglas, SLAs, redes de proveedores, límites, aprobaciones y procesos particulares."
+}
+
+BoundedContext PagosYLiquidaciones {
+    domainVisionStatement =
+        "Gestionar el procesamiento, retención, liberación y liquidación de los pagos asociados a los trabajos y las obligaciones económicas derivadas."
+}
+
+BoundedContext CalidadGarantiasYDisputas {
+    domainVisionStatement =
+        "Gestionar calidad, calificaciones, garantías, reclamaciones y disputas, generando información para mejorar la selección futura de proveedores."
+}
+
+BoundedContext FintechWalletYCredito {
+    domainVisionStatement =
+        "Proporcionar servicios financieros a proveedores mediante wallet, pagos y microcréditos utilizando su historial operacional como insumo para decisiones financieras."
+}
+
+BoundedContext AlianzasEIntegracionesB2B2C {
+    domainVisionStatement =
+        "Gestionar las integraciones tecnológicas y contratos de interacción entre Hogar de los Alpes y sus partners B2B2C, encapsulando sus protocolos, estados, evidencias y reglas de integración."
+}
+
