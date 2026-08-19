@@ -135,7 +135,7 @@ BoundedContext AlianzasIntegracionesB2B2C implements GestionPartnersB2B2C {
 }
 
 ContextMap HogarDeLosAlpes {
-	state = AS_IS
+	state = TO_BE
 
     contains GestionTrabajos
     contains DiagnosticoAdmision
@@ -151,23 +151,24 @@ ContextMap HogarDeLosAlpes {
     contains FintechWalletCredito
     contains AlianzasIntegracionesB2B2C
 	
-    GestionTrabajos [P] <-> [P] DiagnosticoAdmision
-    AlianzasIntegracionesB2B2C [P] <-> [P] SiniestrosOperacionB2B2C
+    GestionTrabajos Supplier-Customer DiagnosticoAdmision
+    AlianzasIntegracionesB2B2C [OHS] -> [ACL] SiniestrosOperacionB2B2C
 	SiniestrosOperacionB2B2C [SK]<->[SK] GestionTrabajos
-    GestionTrabajos [P] <-> [P] OrquestacionWorkflows
-    MarketplaceAsignacion [P] <-> [P] OrquestacionWorkflows
-    MarketplaceAsignacion [SK]<->[SK] Proveedores
-    Proveedores [SK]<->[SK] AcreditacionCumplimiento
-    MarketplaceAsignacion [P] <-> [P] AcreditacionCumplimiento
-    MarketplaceAsignacion [P] <-> [P] GeneradorCotizaciones
-    GeneradorCotizaciones [P] <-> [P] GestionTrabajos
-    OrquestacionWorkflows [SK]<->[SK] EjecucionEvidenciasSeguimiento
-    GestionTrabajos [SK]<->[SK] EjecucionEvidenciasSeguimiento
-    EjecucionEvidenciasSeguimiento [P] <-> [P] CalidadGarantiasDisputas
-    MarketplaceAsignacion [P] <-> [P] CalidadGarantiasDisputas
-    GestionTrabajos [P] <-> [P] PagosLiquidaciones
-    SiniestrosOperacionB2B2C [P] <-> [P] PagosLiquidaciones
-    FintechWalletCredito [P] <-> [P] PagosLiquidaciones
-    Proveedores [P] <-> [P] FintechWalletCredito
-    SiniestrosOperacionB2B2C [SK]<->[SK] AlianzasIntegracionesB2B2C
+    GestionTrabajos Customer-Supplier OrquestacionWorkflows
+    MarketplaceAsignacion Customer-Supplier OrquestacionWorkflows
+    MarketplaceAsignacion Customer-Supplier Proveedores
+    Proveedores Customer-Supplier AcreditacionCumplimiento
+    MarketplaceAsignacion [U, PL] -> [D] AcreditacionCumplimiento
+    MarketplaceAsignacion Customer-Supplier GeneradorCotizaciones
+    GeneradorCotizaciones Supplier-Customer GestionTrabajos
+    OrquestacionWorkflows Customer-Supplier EjecucionEvidenciasSeguimiento
+    GestionTrabajos Customer-Supplier EjecucionEvidenciasSeguimiento
+    EjecucionEvidenciasSeguimiento Supplier-Customer CalidadGarantiasDisputas
+    Proveedores Supplier-Customer CalidadGarantiasDisputas
+    MarketplaceAsignacion [U, PL] -> [D] CalidadGarantiasDisputas
+    GestionTrabajos Customer-Supplier PagosLiquidaciones
+    SiniestrosOperacionB2B2C Customer-Supplier PagosLiquidaciones
+    FintechWalletCredito Customer-Supplier PagosLiquidaciones
+    Proveedores Customer-Supplier FintechWalletCredito
+    SiniestrosOperacionB2B2C Customer-Supplier AlianzasIntegracionesB2B2C
 }
