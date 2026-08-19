@@ -1,0 +1,217 @@
+// HOGAR DE LOS ALPES - CONTEXT MAP AS-IS
+ 
+ /*
+ * Estado actual:
+ * - La operación se ejecuta sobre un monolito.
+ * - Los contextos comparten la misma base de código.
+ * - Existen dependencias internas entre capacidades.
+ * - Existe estado y modelo de datos compartido.
+ * - Las integraciones externas son gestionadas desde el monolito.
+ */
+
+ContextMap HogarDeLosAlpes_AS_IS {
+    type = SYSTEM_LANDSCAPE
+    state = AS_IS
+
+    contains GestionDeTrabajos
+    contains DiagnosticoYAdmision
+    contains MarketplaceYAsignacion
+    contains Proveedores
+    contains AcreditacionYCumplimiento
+    contains GestionDeCotizaciones
+    contains OrquestacionDeWorkflows
+    contains EjecucionYSeguimiento
+    contains SiniestrosYOperacionB2B2C
+    contains PagosYLiquidaciones
+    contains CalidadGarantiasYDisputas
+    contains FintechWalletYCredito
+    contains AlianzasEIntegracionesB2B2C
+
+
+    // DIAGNÓSTICO → GESTIÓN DE TRABAJOS
+
+    GestionDeTrabajos [D,C] <- [U,S] DiagnosticoYAdmision {
+        implementationTechnology = "Monolith / Internal Calls"
+    }
+
+
+    // SINIESTROS → GESTIÓN DE TRABAJOS
+
+    GestionDeTrabajos [D,C] <- [U,S] SiniestrosYOperacionB2B2C {
+        implementationTechnology = "Monolith / Shared Application Model"
+    }
+
+
+    // GESTIÓN DE TRABAJOS → ORQUESTACIÓN
+
+    OrquestacionDeWorkflows [D,C] <- [U,S] GestionDeTrabajos {
+        implementationTechnology = "Monolith / Internal Calls"
+    }
+
+
+    // ORQUESTACIÓN → EJECUCIÓN
+
+    EjecucionYSeguimiento [D,C] <- [U,S] OrquestacionDeWorkflows {
+        implementationTechnology = "Monolith / Shared State"
+    }
+
+
+    // EJECUCIÓN → GESTIÓN DE TRABAJOS
+
+    GestionDeTrabajos [D,C] <- [U,S] EjecucionYSeguimiento {
+        implementationTechnology = "Monolith / Shared State"
+    }
+
+
+    // MARKETPLACE → PROVEEDORES
+
+    MarketplaceYAsignacion [D,C] <- [U,S] Proveedores {
+        implementationTechnology = "Monolith / Shared Domain Model"
+    }
+
+
+    // PROVEEDORES → ACREDITACIÓN
+
+    AcreditacionYCumplimiento [D,C] <- [U,S] Proveedores {
+        implementationTechnology = "Monolith / Internal Calls + External Systems"
+    }
+
+
+    // ACREDITACIÓN → MARKETPLACE
+
+    MarketplaceYAsignacion [D,C] <- [U,S] AcreditacionYCumplimiento {
+        implementationTechnology = "Monolith / Shared Data Model"
+    }
+
+
+    // MARKETPLACE → COTIZACIONES
+
+    GestionDeCotizaciones [D,C] <- [U,S] MarketplaceYAsignacion {
+        implementationTechnology = "Monolith / Internal Calls"
+    }
+
+
+    // COTIZACIONES → GESTIÓN DE TRABAJOS
+
+    GestionDeTrabajos [D,C] <- [U,S] GestionDeCotizaciones {
+        implementationTechnology = "Monolith / Shared State"
+    }
+
+
+    // EJECUCIÓN → CALIDAD
+
+    CalidadGarantiasYDisputas [D,C] <- [U,S] EjecucionYSeguimiento {
+        implementationTechnology = "Monolith / Shared Application Model"
+    }
+
+
+    // CALIDAD → MARKETPLACE
+
+    MarketplaceYAsignacion [D,C] <- [U,S] CalidadGarantiasYDisputas {
+        implementationTechnology = "Monolith / Shared Data Model"
+    }
+
+
+    // GESTIÓN DE TRABAJOS → PAGOS
+
+    PagosYLiquidaciones [D,C] <- [U,S] GestionDeTrabajos {
+        implementationTechnology = "Monolith / Shared Transaction Model"
+    }
+
+
+    // SINIESTROS → PAGOS
+
+    PagosYLiquidaciones [D,C] <- [U,S] SiniestrosYOperacionB2B2C {
+        implementationTechnology = "Monolith / Shared Transaction Model"
+    }
+
+
+    // PAGOS → FINTECH
+
+    FintechWalletYCredito [D,C] <- [U,S] PagosYLiquidaciones {
+        implementationTechnology = "Monolith / Shared Data Model"
+    }
+
+
+    // PROVEEDORES → FINTECH
+
+    FintechWalletYCredito [D,C] <- [U,S] Proveedores {
+        implementationTechnology = "Monolith / Shared Data Model"
+    }
+
+
+    // SINIESTROS → INTEGRACIONES B2B2C
+
+    AlianzasEIntegracionesB2B2C [D,C] <- [U,S] SiniestrosYOperacionB2B2C {
+        implementationTechnology = "Monolith / REST Integrations"
+    }
+}
+
+
+// DEFINICIÓN DE CONTEXTOS ACOTADOS
+
+
+BoundedContext GestionDeTrabajos {
+    domainVisionStatement =
+        "Gestionar el ciclo de vida de los trabajos desde su creación hasta su cierre, manteniendo su estado, categoría, ubicación, urgencia y evolución."
+}
+
+BoundedContext DiagnosticoYAdmision {
+    domainVisionStatement =
+        "Transformar la necesidad expresada por un cliente o partner en una solicitud de trabajo estructurada mediante diagnóstico, categorización, urgencia, ubicación y evidencias."
+}
+
+BoundedContext MarketplaceYAsignacion {
+    domainVisionStatement =
+        "Conectar trabajos con proveedores elegibles según categoría, ubicación, disponibilidad, acreditación y reglas de negocio."
+}
+
+BoundedContext Proveedores {
+    domainVisionStatement =
+        "Gestionar el ciclo de vida de los proveedores de servicios, incluyendo registro, servicios ofrecidos, cobertura geográfica y participación en la plataforma."
+}
+
+BoundedContext AcreditacionYCumplimiento {
+    domainVisionStatement =
+        "Determinar si los proveedores y las personas que prestan servicios cumplen los requisitos de seguridad, documentación, certificación, homologación y vigencia."
+}
+
+BoundedContext GestionDeCotizaciones {
+    domainVisionStatement =
+        "Gestionar la solicitud, recepción, evaluación y selección de cotizaciones, incluyendo visitas, información adicional, cambios de alcance y re-cotizaciones."
+}
+
+BoundedContext OrquestacionDeWorkflows {
+    domainVisionStatement =
+        "Determinar y coordinar el flujo operativo de cada trabajo, incluyendo actividades secuenciales, paralelas, bloqueantes, aprobaciones y reacciones ante eventos."
+}
+
+BoundedContext EjecucionYSeguimiento {
+    domainVisionStatement =
+        "Coordinar y registrar la ejecución de los trabajos, manteniendo progreso, novedades, evidencias, visitas y estados hasta su finalización."
+}
+
+BoundedContext SiniestrosYOperacionB2B2C {
+    domainVisionStatement =
+        "Gestionar trabajos originados por aseguradoras, bancos y comercios aplicando sus reglas, SLAs, redes de proveedores, límites, aprobaciones y procesos particulares."
+}
+
+BoundedContext PagosYLiquidaciones {
+    domainVisionStatement =
+        "Gestionar el procesamiento, retención, liberación y liquidación de los pagos asociados a los trabajos y las obligaciones económicas derivadas."
+}
+
+BoundedContext CalidadGarantiasYDisputas {
+    domainVisionStatement =
+        "Gestionar calidad, calificaciones, garantías, reclamaciones y disputas, generando información para mejorar la selección futura de proveedores."
+}
+
+BoundedContext FintechWalletYCredito {
+    domainVisionStatement =
+        "Proporcionar servicios financieros a proveedores mediante wallet, pagos y microcréditos utilizando su historial operacional como insumo para decisiones financieras."
+}
+
+BoundedContext AlianzasEIntegracionesB2B2C {
+    domainVisionStatement =
+        "Gestionar las integraciones tecnológicas y contratos de interacción entre Hogar de los Alpes y sus partners B2B2C, encapsulando sus protocolos, estados, evidencias y reglas de integración."
+}
