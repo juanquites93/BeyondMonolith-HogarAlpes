@@ -5,6 +5,7 @@ DSL de [Context Mapper](https://contextmapper.org/):
 
 - `Context_AsIs.cml` — Context Map del estado actual (monolito, `AS_IS`).
 - `Context_ToBe.cml` — Context Map del estado objetivo (arquitectura no monolítica, `TO_BE`).
+- `Dominios_subdominios.cml` — Context Map de los dominios y subdominios del proyecto.
 
 Los archivos generados (diagramas Graphviz `.gv`, imágenes, etc.) se ubican en la carpeta `src-gen/`.
 
@@ -88,7 +89,7 @@ Context Mapper puede transformar los modelos en diagramas Graphviz (`.gv`) e im�
 2. Haz clic derecho sobre el editor **o** abre la paleta de comandos (`Ctrl` + `Shift` + `P`).
 3. Ejecuta el comando de generación, por ejemplo:
    - **`Context Mapper: Generate Graphical Context Map`**
-4. El resultado se guarda en la carpeta **`src-gen/`** (por ejemplo `Context_ToBe_ContextMap.png`).
+4. El resultado se guarda en la carpeta **`src-gen/`**.
 
 > La extensión también ofrece otros generadores (PlantUML, Service Cutter, etc.) accesibles
 > desde el mismo menú contextual / paleta de comandos.
