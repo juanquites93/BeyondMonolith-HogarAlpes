@@ -11,6 +11,15 @@ Los archivos generados (diagramas Graphviz `.gv`, imágenes, etc.) se ubican en 
 
 - `Context_AsIs.png` — Imágen del Context Map del estado actual en formato PNG.
 - `Context_ToBe.png` — Imágen del Context Map del estado objetivo en formato PNG.
+
+
+Los diagramas de los flujos en lenguaje ubicuo se encuentran en la carpeta `lenguaje-ubicuo/` en formato PDF.
+
+- `Flujo Marketplace.pdf` — Diagrama en lenguaje ubicuo en formato EventStorming para el flujo del Marketplace.
+- `Flujo proveedores.pdf` — Diagrama en lenguaje ubicuo en formato EventStorming para el flujo de los proveedores.
+- `Flujo Siniestros y pólizas.pdf` — Diagrama en lenguaje ubicuo en formato EventStorming para el flujo de parnetrs B2B2C.
+
+
 ---
 
 ## 1. Requisitos previos
