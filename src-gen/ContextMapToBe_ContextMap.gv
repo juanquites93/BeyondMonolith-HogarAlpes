@@ -1,0 +1,112 @@
+digraph "ContextMapGraph" {
+graph ["imagepath"="C:\Users\JUAN_\AppData\Local\Temp\GraphvizJava"]
+"AcreditacionCumplimiento" ["margin"="0.3","orientation"="272","shape"="egg","fontsize"="16","style"="bold","label"="AcreditacionCumplimiento\n","fontname"="sans-serif"]
+"Proveedores" ["margin"="0.3","orientation"="227","shape"="egg","fontsize"="16","style"="bold","label"="Proveedores\n","fontname"="sans-serif"]
+"CalidadGarantiasDisputas" ["margin"="0.3","orientation"="173","shape"="egg","fontsize"="16","style"="bold","label"="CalidadGarantiasDisputas\n","fontname"="sans-serif"]
+"MarketplaceAsignacion" ["margin"="0.3","orientation"="302","shape"="egg","fontsize"="16","style"="bold","label"="MarketplaceAsignacion\n","fontname"="sans-serif"]
+"AlianzasIntegracionesB2B2C" ["margin"="0.3","orientation"="179","shape"="egg","fontsize"="16","style"="bold","label"="AlianzasIntegracionesB2B2C\n","fontname"="sans-serif"]
+"SiniestrosOperacionB2B2C" ["margin"="0.3","orientation"="328","shape"="egg","fontsize"="16","style"="bold","label"="SiniestrosOperacionB2B2C\n","fontname"="sans-serif"]
+"GestionTrabajos" ["margin"="0.3","orientation"="199","shape"="egg","fontsize"="16","style"="bold","label"="GestionTrabajos\n","fontname"="sans-serif"]
+"DiagnosticoAdmision" ["margin"="0.3","orientation"="293","shape"="egg","fontsize"="16","style"="bold","label"="DiagnosticoAdmision\n","fontname"="sans-serif"]
+"EjecucionEvidenciasSeguimiento" ["margin"="0.3","orientation"="284","shape"="egg","fontsize"="16","style"="bold","label"="EjecucionEvidenciasSeguimiento\n","fontname"="sans-serif"]
+"OrquestacionWorkflows" ["margin"="0.3","orientation"="53","shape"="egg","fontsize"="16","style"="bold","label"="OrquestacionWorkflows\n","fontname"="sans-serif"]
+"FintechWalletCredito" ["margin"="0.3","orientation"="114","shape"="egg","fontsize"="16","style"="bold","label"="FintechWalletCredito\n","fontname"="sans-serif"]
+"GeneradorCotizaciones" ["margin"="0.3","orientation"="284","shape"="egg","fontsize"="16","style"="bold","label"="GeneradorCotizaciones\n","fontname"="sans-serif"]
+"PagosLiquidaciones" ["margin"="0.3","orientation"="146","shape"="egg","fontsize"="16","style"="bold","label"="PagosLiquidaciones\n","fontname"="sans-serif"]
+"AcreditacionCumplimiento" -> "Proveedores" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"Proveedores" -> "CalidadGarantiasDisputas" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"Proveedores" -> "MarketplaceAsignacion" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"MarketplaceAsignacion" -> "CalidadGarantiasDisputas" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="1" border="0">
+<tr><td bgcolor="white" sides="r">U</td><td sides="trbl" bgcolor="white"><font>PL</font></td></tr>
+</table>>,"style"="bold","label"="                                        ","dir"="none","fontname"="sans-serif"]
+"MarketplaceAsignacion" -> "AcreditacionCumplimiento" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="1" border="0">
+<tr><td bgcolor="white" sides="r">U</td><td sides="trbl" bgcolor="white"><font>PL</font></td></tr>
+</table>>,"style"="bold","label"="                                        ","dir"="none","fontname"="sans-serif"]
+"AlianzasIntegracionesB2B2C" -> "SiniestrosOperacionB2B2C" ["headlabel"=<<table cellspacing="0" cellborder="1" border="0">
+<tr><td bgcolor="white" sides="r">D</td><td sides="trbl" bgcolor="white"><font>ACL</font></td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="1" border="0">
+<tr><td bgcolor="white" sides="r">U</td><td sides="trbl" bgcolor="white"><font>OHS</font></td></tr>
+</table>>,"style"="bold","label"="                                        ","dir"="none","fontname"="sans-serif"]
+"AlianzasIntegracionesB2B2C" -> "SiniestrosOperacionB2B2C" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"SiniestrosOperacionB2B2C" -> "GestionTrabajos" ["fontsize"="12","style"="bold","label"="Shared Kernel","dir"="none","fontname"="sans-serif"]
+"GestionTrabajos" -> "DiagnosticoAdmision" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"EjecucionEvidenciasSeguimiento" -> "OrquestacionWorkflows" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"EjecucionEvidenciasSeguimiento" -> "GestionTrabajos" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"EjecucionEvidenciasSeguimiento" -> "CalidadGarantiasDisputas" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"OrquestacionWorkflows" -> "GestionTrabajos" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"OrquestacionWorkflows" -> "MarketplaceAsignacion" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"FintechWalletCredito" -> "Proveedores" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"GeneradorCotizaciones" -> "MarketplaceAsignacion" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"GeneradorCotizaciones" -> "GestionTrabajos" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"PagosLiquidaciones" -> "GestionTrabajos" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"PagosLiquidaciones" -> "SiniestrosOperacionB2B2C" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"PagosLiquidaciones" -> "FintechWalletCredito" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+}
