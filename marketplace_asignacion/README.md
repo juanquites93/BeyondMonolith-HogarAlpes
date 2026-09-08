@@ -128,7 +128,7 @@ Prueban el microservicio completo levantado vía `TestClient`, incluyendo persis
 
 ## 5. Cómo Probar los Escenarios de Calidad con el Microservicio Levantado
 
-A continuación se presentan comandos `curl` para validar manualmente cada escenario de calidad documentado en `PLANTILLA_ENTREGA_3.pdf`. Antes de ejecutarlos, asegúrate de tener el servicio corriendo:
+A continuación se presentan comandos `curl` para validar manualmente algunso escenarios de calidad. Antes de ejecutarlos, asegúrate de tener el servicio corriendo:
 
 ```bash
 uvicorn marketplace_asignacion.main:app --port 8000
@@ -293,9 +293,7 @@ sqlite3 marketplace_asignacion.db "SELECT event_type, correlation_id FROM outbox
 
 El diseño arquitectónico favorece activamente los siguientes escenarios de calidad priorizados para **Hogar de los Alpes**. El atributo más crítico para este bounded context es la **Disponibilidad**, seguido de **Modificabilidad** y **Escalabilidad**.
 
-> Ver detalle completo de fuente, estímulo, artefacto, entorno, respuesta y medida en el documento **`PLANTILLA_ENTREGA_3.pdf`**.
-
-### 7.1. Disponibilidad (H/M) — Atributo Principal
+### 7.1. Disponibilidad (H/H) — Atributo Principal
 
 **Escenario clave:** Una falla en la integración con un partner o en la publicación de eventos no debe detener la operación global del marketplace ni del flujo de siniestros.
 
@@ -305,7 +303,7 @@ El diseño arquitectónico favorece activamente los siguientes escenarios de cal
 - **Aislamiento de fallos:** un error en `SeleccionarProveedor` (ej. proveedor no acreditado) se traduce en HTTP 409 local. No propaga cascada a otros microservicios porque no hay transacciones distribuidas síncronas.
 - **Healthcheck activo:** `/health` verifica conectividad a la base de datos, permitiendo que el orquestador retire réplicas enfermas automáticamente.
 
-### 7.2. Modificabilidad (H/H)
+### 7.2. Modificabilidad (H/M)
 
 **Escenario clave:** El negocio debe incorporar reglas de asignación distintas para México, Brasil y Argentina, además de nuevos partners B2B2C, sin detener el servicio global.
 
@@ -325,25 +323,7 @@ El diseño arquitectónico favorece activamente los siguientes escenarios de cal
 - **FastAPI + Uvicorn:** servidor ASGI que aprovecha I/O no bloqueante para healthchecks, validaciones Pydantic y lecturas concurrentes.
 - **Broker externo (diseñado):** al reemplazar el publisher simulado por Kafka o RabbitMQ, el fan-out de eventos no consume recursos del proceso API.
 
-### 7.4. Consistencia Eventual (Escenario transversal)
 
-**Escenario clave:** Los consumidores de eventos (pagos, notificaciones, analytics) deben reflejar el cambio de estado del trabajo sin requerir consistencia inmediata síncrona.
-
-**Tácticas aplicadas en el código:**
-- **Consistencia eventual por diseño:** el aggregate emite eventos de dominio que se almacenan en outbox y se publican de forma asíncrona. Los consumidores eventualmente reciben `TrabajoPublicado` o `ProveedorSeleccionado`.
-- **Correlation ID:** cada comando y evento lleva `correlation_id`, lo que permite trazar el flujo end-to-end a través de múltiples microservicios.
 
 ---
 
-## 8. Documentación Adicional
-
-- **`IMPLEMENTACION.md`**: contiene el diseño DDD detallado, modelo de eventos, decisiones arquitectónicas, tradeoffs, riesgos, estructura de carpetas y próximos pasos.
-- **`PLANTILLA_ENTREGA_3.pdf`**: plantilla de escenarios de calidad arquitectónica con fuente, estímulo, artefacto, entorno, respuesta y medida para Disponibilidad, Modificabilidad y Escalabilidad.
-- **`/docs` (Swagger UI)**: disponible automáticamente al levantar el servicio en `http://localhost:8000/docs`.
-
----
-
-## 9. Licencia y Autoría
-
-Proyecto académico desarrollado como parte de la materia de Arquitectura de Software — Universidad de los Andes.  
-Uso educativo y demostrativo.
