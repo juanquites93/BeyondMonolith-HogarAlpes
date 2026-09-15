@@ -23,7 +23,7 @@ _pasarela = PasarelaSimulada()
 def procesar_mensaje(datos: bytes) -> None:
     """Traduce el sobre JSON del comando entrante y ejecuta el manejador.
 
-    Tópico único `ms-notificaciones.comandos`, `messageType` discrimina entre
+    Tópico único `notificaciones.comandos`, `messageType` discrimina entre
     los comandos que llegan (ver docs/CONTRATO_EVENTOS.md).
     """
     sobre = json.loads(datos)

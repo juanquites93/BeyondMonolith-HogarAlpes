@@ -75,11 +75,7 @@ class SimulatedEventPublisher:
         }
         client = pulsar.Client(settings.PULSAR_SERVICE_URL)
         try:
-            topico = (
-                f"persistent://{settings.PULSAR_TENANT}/{settings.PULSAR_NAMESPACE}/"
-                "ms-notificaciones.eventos"
-            )
-            productor = client.create_producer(topico)
+            productor = client.create_producer(settings.TOPICO_EVENTOS)
             productor.send(json.dumps(mensaje).encode("utf-8"))
         finally:
             client.close()

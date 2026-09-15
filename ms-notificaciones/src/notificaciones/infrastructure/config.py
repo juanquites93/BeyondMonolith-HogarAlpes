@@ -20,7 +20,13 @@ class Settings:
 
     @property
     def TOPICO_COMANDOS(self) -> str:
-        return f"persistent://{self.PULSAR_TENANT}/{self.PULSAR_NAMESPACE}/ms-notificaciones.comandos"
+        # Nombre de topico fijado por el contrato entre microservicios: no
+        # lleva el prefijo "ms-" del nombre de este servicio/carpeta.
+        return f"persistent://{self.PULSAR_TENANT}/{self.PULSAR_NAMESPACE}/notificaciones.comandos"
+
+    @property
+    def TOPICO_EVENTOS(self) -> str:
+        return f"persistent://{self.PULSAR_TENANT}/{self.PULSAR_NAMESPACE}/notificaciones.eventos"
 
 
 settings = Settings()
