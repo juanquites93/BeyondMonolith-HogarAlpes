@@ -1,3 +1,4 @@
+
 services:
   pulsar:
     image: apachepulsar/pulsar:3.2.0
@@ -119,6 +120,28 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  notificaciones:
+    build: ./ms-notificaciones
+    container_name: hogar_alpes_notificaciones
+    ports:
+      - "8003:8000"
+    environment:
+      - PULSAR_SERVICE_URL=pulsar://pulsar:6650
+      - PULSAR_TENANT=hogar
+      - PULSAR_NAMESPACE=alpes
+      - PULSAR_SUSCRIPCION=notificaciones-workers
+      - DATABASE_URL=postgresql://hogar:alpes@postgres:5432/notificaciones_db
+    depends_on:
+      pulsar-init:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 10s
       timeout: 5s
       retries: 5
