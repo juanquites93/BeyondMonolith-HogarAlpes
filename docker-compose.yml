@@ -12,8 +12,9 @@ services:
     healthcheck:
       test: ["CMD", "bin/pulsar-admin", "brokers", "healthcheck"]
       interval: 10s
-      timeout: 5s
+      timeout: 30s
       retries: 10
+      start_period: 60s
 
   pulsar-init:
     image: apachepulsar/pulsar:3.2.0
@@ -94,6 +95,30 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cotizacion:
+    build: ./generador_cotizacion
+    container_name: hogar_alpes_cotizacion
+    ports:
+      - "8002:8002"
+    environment:
+      - PULSAR_SERVICE_URL=pulsar://pulsar:6650
+      - PULSAR_SUBSCRIPTION=cotizacion-sub
+      - PULSAR_CONSUMER_TOPICS=persistent://hogar/alpes/cotizaciones.comandos
+      - PULSAR_PRODUCER_TOPIC=persistent://hogar/alpes/cotizaciones.eventos
+      - PULSAR_DLQ_TOPIC=persistent://hogar/alpes/dlq
+      - PULSAR_MAX_REDELIVER_COUNT=5
+      - DATABASE_URL=postgresql://hogar:alpes@postgres:5432/cotizacion_db
+    depends_on:
+      pulsar-init:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health')"]
       interval: 10s
       timeout: 5s
       retries: 5
