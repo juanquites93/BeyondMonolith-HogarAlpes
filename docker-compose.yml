@@ -1,0 +1,104 @@
+services:
+  pulsar:
+    image: apachepulsar/pulsar:3.2.0
+    container_name: hogar_alpes_pulsar
+    command: bin/pulsar standalone
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    volumes:
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
+    healthcheck:
+      test: ["CMD", "bin/pulsar-admin", "brokers", "healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  pulsar-init:
+    image: apachepulsar/pulsar:3.2.0
+    container_name: hogar_alpes_pulsar_init
+    command: >
+      bash -c "
+        echo 'Esperando Pulsar...' &&
+        sleep 20 &&
+        until bin/pulsar-admin --admin-url http://pulsar:8080 brokers healthcheck; do sleep 5; done &&
+        echo 'Pulsar listo, creando tenant/namespace...' &&
+        bin/pulsar-admin --admin-url http://pulsar:8080 tenants create hogar || true &&
+        bin/pulsar-admin --admin-url http://pulsar:8080 namespaces create hogar/alpes || true &&
+        bin/pulsar-admin --admin-url http://pulsar:8080 namespaces set-auto-topic-creation --enable hogar/alpes || true &&
+        echo 'Pulsar init completado'
+      "
+    depends_on:
+      pulsar:
+        condition: service_healthy
+    restart: "no"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: hogar_alpes_postgres
+    environment:
+      POSTGRES_USER: hogar
+      POSTGRES_PASSWORD: alpes
+      POSTGRES_DB: hogar_alpes
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hogar -d hogar_alpes"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  marketplace:
+    build: ./ms-marketplace-asignacion
+    container_name: hogar_alpes_marketplace
+    ports:
+      - "8000:8000"
+    environment:
+      - PULSAR_SERVICE_URL=pulsar://pulsar:6650
+      - PULSAR_PRODUCER_TOPIC=persistent://hogar/alpes/marketplace.eventos
+      - PULSAR_VERIFICACION_TOPIC=persistent://hogar/alpes/verificacion.comandos
+      - PULSAR_COTIZACIONES_TOPIC=persistent://hogar/alpes/cotizaciones.comandos
+      - PULSAR_NOTIFICACIONES_TOPIC=persistent://hogar/alpes/notificaciones.comandos
+      - DATABASE_URL=postgresql://hogar:alpes@postgres:5432/marketplace_db
+    depends_on:
+      pulsar-init:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  verificacion:
+    build: ./ms-verificacion-acreditacion
+    container_name: hogar_alpes_verificacion
+    ports:
+      - "8001:8001"
+    environment:
+      - PULSAR_SERVICE_URL=pulsar://pulsar:6650
+      - PULSAR_CONSUMER_TOPICS=persistent://hogar/alpes/verificacion.comandos
+      - PULSAR_PRODUCER_TOPIC=persistent://hogar/alpes/verificacion.eventos
+      - PULSAR_DLQ_TOPIC=persistent://hogar/alpes/dlq
+      - PULSAR_MAX_REDELIVER_COUNT=5
+      - DATABASE_URL=postgresql://hogar:alpes@postgres:5432/verificacion_db
+    depends_on:
+      pulsar-init:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pulsardata:
+  pulsarconf:
+  postgres_data:

@@ -1,0 +1,4 @@
+CREATE DATABASE marketplace_db;
+CREATE DATABASE verificacion_db;
+GRANT ALL PRIVILEGES ON DATABASE marketplace_db TO hogar;
+GRANT ALL PRIVILEGES ON DATABASE verificacion_db TO hogar;
