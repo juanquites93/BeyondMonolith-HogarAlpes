@@ -1,0 +1,44 @@
+# =============================================================================
+# Ejemplo de variables para Terraform
+# =============================================================================
+# Copia este archivo a terraform.tfvars y ajusta los valores.
+# NUNCA commitees terraform.tfvars con secrets reales.
+# =============================================================================
+
+# Región de AWS
+aws_region = "us-east-1"
+
+# Etiquetas del proyecto
+project_name = "hogar-alpes"
+environment  = "dev"
+
+# Networking
+vpc_cidr            = "10.0.0.0/16"
+public_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
+availability_zones  = ["us-east-1a", "us-east-1b"]
+
+# Seguridad - REEMPLAZAR con tu IP pública real
+allowed_ssh_cidr = "0.0.0.0/0"   # Ejemplo: "203.0.113.10/32"
+allowed_api_cidr = "0.0.0.0/0"   # Ejemplo: "203.0.113.10/32"
+
+# Opcional: key pair de AWS para SSH. Si se deja vacío se usa SSM Session Manager.
+# key_pair_name = "mi-key-pair"
+
+# Tipo de instancia EC2. t3.xlarge es el mínimo recomendado para todos los contenedores.
+ec2_instance_type    = "t3.xlarge"
+ec2_root_volume_size = 30
+
+# Almacenamiento EBS persistente (gp3)
+pulsar_ebs_volume_size   = 50
+postgres_ebs_volume_size = 30
+
+# Credenciales PostgreSQL
+postgres_admin_user     = "hogar"
+# Si se deja vacío, Terraform genera una contraseña aleatoria de 24 caracteres.
+# postgres_admin_password = "cambiar_esta_contraseña_por_una_segura"
+
+# Nombre del cluster de Pulsar
+pulsar_cluster_name = "hogar-alpes-cluster"
+
+# Archivo docker-compose a utilizar en la EC2
+docker_compose_file = "docker-compose.aws.yml"
