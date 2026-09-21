@@ -10,10 +10,22 @@ from notificaciones.domain.model import EstadoInvalidoError
 from notificaciones.interfaces.api import router as api_router
 from notificaciones.interfaces.health import router as health_router
 
+
+class _InstanceIdLogFilter(logging.Filter):
+    """Agrega el instance_id de esta replica a cada linea de log."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        record.instance_id = settings.INSTANCE_ID
+        return True
+
+
+_log_handler = logging.StreamHandler(sys.stdout)
+_log_handler.addFilter(_InstanceIdLogFilter())
+
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(name)s %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout)],
+    format="%(asctime)s %(levelname)s %(name)s [instance=%(instance_id)s] %(message)s",
+    handlers=[_log_handler],
 )
 
 app = FastAPI(
@@ -24,6 +36,14 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(api_router)
+
+
+@app.middleware("http")
+async def agregar_header_instance_id(request: Request, call_next):
+    """Deja explicito, en cada respuesta, que replica la atendio."""
+    response = await call_next(request)
+    response.headers["X-Instance-Id"] = settings.INSTANCE_ID
+    return response
 
 
 @app.exception_handler(EstadoInvalidoError)
