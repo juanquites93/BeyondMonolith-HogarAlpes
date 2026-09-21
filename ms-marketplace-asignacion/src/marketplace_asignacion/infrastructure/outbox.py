@@ -80,6 +80,10 @@ class SqlAlchemyOutboxStore(OutboxStore):
             base["seleccionado_en"] = (
                 evento.seleccionado_en.isoformat() if evento.seleccionado_en else None
             )
+        if hasattr(evento, "revertida_en"):
+            base["revertida_en"] = (
+                evento.revertida_en.isoformat() if evento.revertida_en else None
+            )
         if hasattr(evento, "nuevo_alcance") and evento.nuevo_alcance:
             base["nuevo_alcance"] = dataclasses.asdict(evento.nuevo_alcance)
         if hasattr(evento, "razon"):

@@ -12,6 +12,7 @@ from marketplace_asignacion.application.commands import (
     SolicitarTrabajo,
     PublicarTrabajo,
     SeleccionarProveedor,
+    RevertirSeleccionProveedor,
 )
 from marketplace_asignacion.application.handlers import CommandHandler
 from marketplace_asignacion.infrastructure import database as db_module
@@ -25,6 +26,7 @@ from marketplace_asignacion.interfaces.schemas import (
     SolicitarTrabajoRequest,
     PublicarTrabajoRequest,
     SeleccionarProveedorRequest,
+    RevertirSeleccionProveedorRequest,
     TrabajoResponse,
     UbicacionSchema,
     AlcanceSchema,
@@ -208,6 +210,42 @@ def obtener_trabajo(
     if trabajo is None:
         raise HTTPException(status_code=404, detail="Trabajo no encontrado")
     return _to_response(trabajo)
+
+
+@router.post(
+    "/trabajos/{trabajo_id}/revertir-seleccion-proveedor",
+    response_model=TrabajoResponse,
+)
+def revertir_seleccion_proveedor(
+    trabajo_id: uuid.UUID,
+    request: RevertirSeleccionProveedorRequest,
+    db: Session = Depends(get_db),
+):
+    key = request.idempotency_key or IdempotencyService.compute_key(
+        "RevertirSeleccionProveedor",
+        {"trabajo_id": str(trabajo_id)},
+        request.correlation_id,
+    )
+    idempotency = IdempotencyService(db)
+
+    def _run():
+        uow = SqlAlchemyUnitOfWork()
+        outbox = SqlAlchemyOutboxStore()
+        handler = CommandHandler(uow, outbox, get_acreditacion_adapter())
+        cmd = RevertirSeleccionProveedor(
+            trabajo_id=trabajo_id,
+            correlation_id=request.correlation_id,
+        )
+        with uow:
+            outbox.bind(uow.session)
+            trabajo = handler.handle_revertir_seleccion_proveedor(cmd)
+        trabajo.limpiar_eventos()
+        return trabajo
+
+    result = idempotency.check_or_run(key, "RevertirSeleccionProveedor", _run)
+    if isinstance(result, dict):
+        return JSONResponse(content=result, status_code=200)
+    return _to_response(result)
 
 
 @router.post("/debug/acreditar-proveedor")

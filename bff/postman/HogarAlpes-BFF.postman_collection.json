@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "3d047313-651f-4f0c-a209-566f5c05294a",
+		"name": "Hogar Alpes - BFF (GraphQL)",
+		"description": "Colección básica para probar el BFF (FastAPI + Strawberry GraphQL) de Hogar de los Alpes. Incluye el health check y las queries/mutations expuestas sobre los 4 microservicios (marketplace, verificación, cotización, notificaciones).\n\nAjusta la variable de colección `base_url` si el BFF no corre en `http://35.153.201.103:8010`.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{ "key": "base_url", "value": "http://35.153.201.103:8010", "type": "string" },
+		{ "key": "trabajo_id", "value": "120891b9-4cb0-4549-b0a4-bf97116dbb36", "type": "string" },
+		{ "key": "proveedor_id", "value": "dd82297a-476c-44ff-8add-f2e007fa910b", "type": "string" },
+		{ "key": "cotizacion_id", "value": "dcaadb6c-7ab0-4b02-9402-3e8ebea27fd7", "type": "string" },
+		{ "key": "notificacion_id", "value": "be0c5357-6201-4d6c-bd11-a09866c0a96e", "type": "string" }
+	],
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [ "{{base_url}}" ],
+							"path": [ "health" ]
+						},
+						"description": "Verifica que el BFF esté levantado. Debe responder `{\"status\": \"ok\", \"service\": \"bff\"}`."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "Consultar Trabajo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Trabajo($trabajoId: UUID!) {\n  trabajo(trabajoId: $trabajoId) {\n    trabajoId\n    clienteId\n    estado\n    proveedorSeleccionadoId\n  }\n}",
+								"variables": "{\n  \"trabajoId\": \"{{trabajo_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/graphql",
+							"host": [ "{{base_url}}" ],
+							"path": [ "graphql" ]
+						},
+						"description": "Delegado a marketplace: GET /trabajos/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Estado Proveedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query EstadoProveedor($proveedorId: UUID!) {\n  estadoProveedor(proveedorId: $proveedorId) {\n    proveedorId\n    estadoVerificacion\n    estadoAcreditacion\n  }\n}",
+								"variables": "{\n  \"proveedorId\": \"{{proveedor_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/graphql",
+							"host": [ "{{base_url}}" ],
+							"path": [ "graphql" ]
+						},
+						"description": "Delegado a verificación: GET /proveedores/{id}/estado"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Cotizacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Cotizacion($cotizacionId: UUID!) {\n  cotizacion(cotizacionId: $cotizacionId) {\n    cotizacionId\n    trabajoId\n    proveedorId\n    monto\n    moneda\n    descripcion\n    estado\n  }\n}",
+								"variables": "{\n  \"cotizacionId\": \"{{cotizacion_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/graphql",
+							"host": [ "{{base_url}}" ],
+							"path": [ "graphql" ]
+						},
+						"description": "Delegado a cotización: GET /cotizaciones/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Notificacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Notificacion($notificacionId: UUID!) {\n  notificacion(notificacionId: $notificacionId) {\n    notificacionId\n    destinatarioId\n    tipo\n    canal\n    estado\n  }\n}",
+								"variables": "{\n  \"notificacionId\": \"{{notificacion_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/graphql",
+							"host": [ "{{base_url}}" ],
+							"path": [ "graphql" ]
+						},
+						"description": "Delegado a notificaciones: GET /notificaciones/{id}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mutations",
+			"item": [
+				{
+					"name": "Solicitar Trabajo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation SolicitarTrabajo($input: SolicitarTrabajoInput!) {\n  solicitarTrabajo(input: $input) {\n    trabajoId\n    clienteId\n    estado\n  }\n}",
+								"variables": "{\n  \"input\": {\n    \"clienteId\": \"{{proveedor_id}}\",\n    \"ubicacion\": {\n      \"direccion\": \"Calle 10 #5-20\",\n      \"ciudad\": \"Bogotá\",\n      \"pais\": \"CO\",\n      \"codigoPostal\": \"110111\"\n    },\n    \"alcance\": {\n      \"descripcion\": \"Reparación de tubería\",\n      \"categoria\": \"plomeria\",\n      \"notas\": \"Urgente\"\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/graphql",
+							"host": [ "{{base_url}}" ],
+							"path": [ "graphql" ]
+						},
+						"description": "Delegado a marketplace: POST /trabajos/solicitar. El trabajoId devuelto puede usarse en 'Consultar Trabajo' y en 'Solicitar Cotizacion'."
+					},
+					"response": []
+				},
+				{
+					"name": "Iniciar Verificacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation IniciarVerificacion($proveedorId: UUID!) {\n  iniciarVerificacion(proveedorId: $proveedorId) {\n    proveedorId\n    estadoVerificacion\n    estadoAcreditacion\n  }\n}",
+								"variables": "{\n  \"proveedorId\": \"{{proveedor_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/graphql",
+							"host": [ "{{base_url}}" ],
+							"path": [ "graphql" ]
+						},
+						"description": "Delegado a verificación: POST /verificaciones"
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitar Cotizacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation SolicitarCotizacion($input: SolicitarCotizacionInput!) {\n  solicitarCotizacion(input: $input) {\n    cotizacionId\n    trabajoId\n    proveedorId\n    monto\n    moneda\n    estado\n  }\n}",
+								"variables": "{\n  \"input\": {\n    \"trabajoId\": \"{{trabajo_id}}\",\n    \"proveedorId\": \"{{proveedor_id}}\",\n    \"monto\": 150000,\n    \"descripcion\": \"Reparación de tubería\",\n    \"moneda\": \"COP\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/graphql",
+							"host": [ "{{base_url}}" ],
+							"path": [ "graphql" ]
+						},
+						"description": "Delegado a cotización: POST /cotizaciones/solicitar"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

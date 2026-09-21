@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from notificaciones.infrastructure import database as db_module
 from notificaciones.infrastructure.repositories import SqlAlchemyNotificacionRepository
+from notificaciones.infrastructure.pasarela_adapter import PasarelaSimulada
 from notificaciones.interfaces.schemas import NotificacionResponse
 
 router = APIRouter()
@@ -41,3 +42,13 @@ def obtener_notificacion(
     if notificacion is None:
         raise HTTPException(status_code=404, detail="Notificacion no encontrada")
     return _to_response(notificacion)
+
+
+@router.post("/debug/dependencia-externa")
+def toggle_dependencia_externa(fallar: bool = True):
+    """Activa/desactiva la simulación de fallo del proveedor de notificaciones."""
+    PasarelaSimulada.forzar_fallo(fallar)
+    return {
+        "dependencia_externa_fallando": fallar,
+        "detalle": "Las siguientes notificaciones marcadas como enviadas fallarán",
+    }

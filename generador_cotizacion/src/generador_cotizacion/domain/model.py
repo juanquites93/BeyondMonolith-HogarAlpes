@@ -4,7 +4,11 @@ from datetime import datetime
 from typing import List, Optional
 from dataclasses import dataclass, field
 
-from generador_cotizacion.domain.events import DomainEvent, CotizacionSolicitada
+from generador_cotizacion.domain.events import (
+    DomainEvent,
+    CotizacionSolicitada,
+    CotizacionCancelada,
+)
 from generador_cotizacion.domain.value_objects import EstadoCotizacion
 
 
@@ -62,3 +66,15 @@ class Cotizacion:
         )
         cotizacion._aplicar_evento(evento)
         return cotizacion
+
+    def cancelar(self, correlation_id: Optional[str] = None) -> None:
+        if self.estado == EstadoCotizacion.CANCELADA:
+            return
+        self.estado = EstadoCotizacion.CANCELADA
+        evento = CotizacionCancelada(
+            cotizacion_id=self.id,
+            trabajo_id=self.trabajo_id,
+            proveedor_id=self.proveedor_id,
+            correlation_id=correlation_id,
+        )
+        self._aplicar_evento(evento)

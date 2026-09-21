@@ -8,6 +8,7 @@ class EstadoNotificacion(str, Enum):
     PENDIENTE = "PENDIENTE"
     ENVIADA = "ENVIADA"
     FALLIDA = "FALLIDA"
+    CANCELADA = "CANCELADA"
 
 
 class Canal(str, Enum):
