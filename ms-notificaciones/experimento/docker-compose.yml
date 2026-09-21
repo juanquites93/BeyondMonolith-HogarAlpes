@@ -1,0 +1,137 @@
+# Entorno aislado para el experimento de disponibilidad de ms-notificaciones.
+# Ver ../docs/experimento-disponibilidad.md para el diseño completo.
+#
+# NO comparte nada con el docker-compose.yml de la raiz del monorepo: Pulsar,
+# Postgres, puertos y nombres de contenedor son propios de este experimento.
+#
+# Uso basico:
+#   docker compose up -d --build      # levanta pulsar, postgres, nginx y las 3 replicas
+#   docker compose stop notificaciones_3   # simula N=2 replicas (o una falla)
+#   docker compose start notificaciones_3  # vuelve a N=3 / recupera la replica
+#
+# Ver README.md de esta carpeta para el procedimiento completo del experimento.
+
+services:
+  pulsar:
+    image: apachepulsar/pulsar:3.2.0
+    container_name: experimento_pulsar
+    command: bin/pulsar standalone
+    ports:
+      - "16650:6650"
+      - "18080:8080"
+    volumes:
+      - experimento_pulsar_data:/pulsar/data
+      - experimento_pulsar_conf:/pulsar/conf
+    healthcheck:
+      test: ["CMD", "bin/pulsar-admin", "brokers", "healthcheck"]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+      start_period: 60s
+
+  pulsar-init:
+    image: apachepulsar/pulsar:3.2.0
+    container_name: experimento_pulsar_init
+    command: >
+      bash -c "
+        echo 'Esperando Pulsar del experimento...' &&
+        sleep 20 &&
+        until bin/pulsar-admin --admin-url http://pulsar:8080 brokers healthcheck; do sleep 5; done &&
+        echo 'Pulsar listo, creando tenant/namespace...' &&
+        bin/pulsar-admin --admin-url http://pulsar:8080 tenants create hogar || true &&
+        bin/pulsar-admin --admin-url http://pulsar:8080 namespaces create hogar/alpes || true &&
+        bin/pulsar-admin --admin-url http://pulsar:8080 namespaces set-auto-topic-creation --enable hogar/alpes || true &&
+        echo 'Pulsar init del experimento completado'
+      "
+    depends_on:
+      pulsar:
+        condition: service_healthy
+    restart: "no"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: experimento_postgres
+    environment:
+      POSTGRES_USER: experimento
+      POSTGRES_PASSWORD: experimento
+      POSTGRES_DB: notificaciones_experimento
+    ports:
+      - "15432:5432"
+    volumes:
+      - experimento_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U experimento -d notificaciones_experimento"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  notificaciones_1:
+    build:
+      context: ..
+    container_name: experimento_notificaciones_1
+    environment: &notificaciones_env
+      PORT: "8000"
+      INSTANCE_ID: notificaciones-1
+      DATABASE_URL: postgresql://experimento:experimento@postgres:5432/notificaciones_experimento
+      PULSAR_SERVICE_URL: pulsar://pulsar:6650
+      PULSAR_TENANT: hogar
+      PULSAR_NAMESPACE: alpes
+      # Nombre distinto al de produccion (ver paso 5 del diseño): en este
+      # compose ya es un broker aislado, esto es una segunda capa de
+      # seguridad por si alguna vez se apuntara por error al broker
+      # compartido.
+      PULSAR_SUSCRIPCION: notificaciones-workers-experimento
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pulsar:
+        condition: service_healthy
+    expose:
+      - "8000"
+
+  notificaciones_2:
+    build:
+      context: ..
+    container_name: experimento_notificaciones_2
+    environment:
+      <<: *notificaciones_env
+      INSTANCE_ID: notificaciones-2
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pulsar:
+        condition: service_healthy
+    expose:
+      - "8000"
+
+  notificaciones_3:
+    build:
+      context: ..
+    container_name: experimento_notificaciones_3
+    environment:
+      <<: *notificaciones_env
+      INSTANCE_ID: notificaciones-3
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pulsar:
+        condition: service_healthy
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: experimento_nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "18000:80"
+    depends_on:
+      - notificaciones_1
+      - notificaciones_2
+      - notificaciones_3
+
+volumes:
+  experimento_pulsar_data:
+  experimento_pulsar_conf:
+  experimento_postgres_data:
