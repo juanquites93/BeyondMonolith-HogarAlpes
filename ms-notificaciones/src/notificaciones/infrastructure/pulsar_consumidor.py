@@ -11,6 +11,7 @@ from notificaciones.application.handlers import CommandHandler
 from notificaciones.infrastructure import database as db_module
 from notificaciones.infrastructure.config import settings
 from notificaciones.infrastructure.idempotency import IdempotencyService
+from notificaciones.infrastructure.metrics import eventos_consumidos_total
 from notificaciones.infrastructure.outbox import SqlAlchemyOutboxStore
 from notificaciones.infrastructure.pasarela_adapter import PasarelaSimulada
 from notificaciones.infrastructure.unit_of_work_impl import SqlAlchemyUnitOfWork
@@ -123,9 +124,11 @@ def iniciar_consumidor_en_hilo() -> threading.Thread | None:
                 try:
                     procesar_mensaje(mensaje.data())
                     consumidor.acknowledge(mensaje)
+                    eventos_consumidos_total.labels(resultado="ok").inc()
                 except Exception:
                     logger.exception("Fallo procesando un comando; se hace nack.")
                     consumidor.negative_acknowledge(mensaje)
+                    eventos_consumidos_total.labels(resultado="fallido").inc()
         finally:
             # Si receive()/acknowledge() lanzan por una desconexion real del
             # broker, marcamos la replica como no lista antes de que el hilo

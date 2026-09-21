@@ -19,6 +19,8 @@ dependencies = [
     # es un stub inerte y la serializacion Avro falla en tiempo de ejecucion.
     "pulsar-client[avro]>=3.13.0",
     "httpx>=0.27.0",
+    # Metricas HTTP (requests OK/fallidos, latencia) expuestas en /metrics.
+    "prometheus-fastapi-instrumentator>=7.0.0",
 ]
 
 [project.optional-dependencies]

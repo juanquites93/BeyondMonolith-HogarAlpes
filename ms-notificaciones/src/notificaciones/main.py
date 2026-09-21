@@ -2,6 +2,7 @@ import logging
 import sys
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from notificaciones.infrastructure import database as db_module
 from notificaciones.infrastructure.config import settings
@@ -36,6 +37,11 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(api_router)
+
+# Expone /metrics con requests OK/fallidos y latencia por endpoint. Los
+# contadores propios de eventos (consumo de Pulsar) estan en
+# infrastructure/metrics.py y se registran en el mismo endpoint.
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
 
 @app.middleware("http")
