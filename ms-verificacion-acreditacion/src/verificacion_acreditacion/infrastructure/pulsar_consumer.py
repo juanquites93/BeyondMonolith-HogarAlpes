@@ -71,6 +71,7 @@ class PulsarCommandConsumer:
                 logger.error(
                     "Error procesando mensaje; enviando a DLQ (nack)",
                     extra={"error": str(exc), "message_id": str(msg.message_id())},
+                    exc_info=True,
                 )
                 self._consumer.negative_acknowledge(msg)
 
