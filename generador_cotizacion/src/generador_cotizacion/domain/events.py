@@ -27,3 +27,11 @@ class CotizacionSolicitada(DomainEvent):
     monto: Optional[float] = None
     moneda: str = "COP"
     descripcion: str = ""
+
+
+@dataclass
+class CotizacionCancelada(DomainEvent):
+    cotizacion_id: uuid.UUID = None
+    trabajo_id: uuid.UUID = None
+    proveedor_id: Optional[uuid.UUID] = None
+    cancelada_en: datetime = field(default_factory=datetime.utcnow)

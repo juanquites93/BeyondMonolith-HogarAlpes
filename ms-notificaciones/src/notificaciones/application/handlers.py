@@ -4,6 +4,7 @@ import logging
 from notificaciones.application.commands import (
     NotificarProveedorAsignado,
     NotificarClienteProveedorAsignado,
+    CancelarNotificacion,
 )
 from notificaciones.application.unit_of_work import UnitOfWork
 from notificaciones.application.outbox_port import OutboxStore
@@ -42,7 +43,9 @@ class CommandHandler:
         if exitoso:
             notificacion.marcar_enviada(correlation_id=correlation_id)
         else:
-            notificacion.marcar_fallida("la pasarela no acepto el envio", correlation_id=correlation_id)
+            notificacion.marcar_fallida(
+                "la pasarela no acepto el envio", correlation_id=correlation_id
+            )
         return notificacion
 
     def handle_notificar_proveedor_asignado(
@@ -101,6 +104,19 @@ class CommandHandler:
         self._outbox.store(notificacion.eventos)
         logger.info(
             "Notificacion de proveedor asignado procesada",
+            extra={"notificacion_id": str(notificacion.id)},
+        )
+        return notificacion
+
+    def handle_cancelar_notificacion(self, cmd: CancelarNotificacion) -> Notificacion:
+        notificacion = self._uow.notificaciones.get(cmd.notificacion_id)
+        if notificacion is None:
+            raise ValueError(f"Notificacion {cmd.notificacion_id} no encontrada")
+        notificacion.cancelar(correlation_id=cmd.correlation_id)
+        self._uow.notificaciones.update(notificacion)
+        self._outbox.store(notificacion.eventos)
+        logger.info(
+            "Notificacion cancelada",
             extra={"notificacion_id": str(notificacion.id)},
         )
         return notificacion

@@ -29,6 +29,12 @@ class AcreditarProveedorRequest(BaseModel):
     idempotency_key: Optional[str] = Field(default=None)
 
 
+class RevocarAcreditacionRequest(BaseModel):
+    acreditacion_id: Optional[uuid.UUID] = Field(default=None)
+    correlation_id: Optional[str] = Field(default=None)
+    idempotency_key: Optional[str] = Field(default=None)
+
+
 class ProveedorResponse(BaseModel):
     proveedor_id: uuid.UUID
     estado_verificacion: str

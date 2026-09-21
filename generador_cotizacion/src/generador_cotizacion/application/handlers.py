@@ -7,6 +7,7 @@ from generador_cotizacion.application.commands import (
     GenerarCotizacion,
     ActualizarCotizacion,
     EliminarCotizacion,
+    CancelarCotizacion,
 )
 from generador_cotizacion.application.unit_of_work import UnitOfWork
 from generador_cotizacion.application.outbox_port import OutboxStore
@@ -48,7 +49,10 @@ class CommandHandler:
         self._outbox.store(cotizacion.eventos)
         logger.info(
             "Cotización generada a partir de comando de integración",
-            extra={"cotizacion_id": str(cotizacion.id), "trabajo_id": str(cmd.trabajo_id)},
+            extra={
+                "cotizacion_id": str(cotizacion.id),
+                "trabajo_id": str(cmd.trabajo_id),
+            },
         )
         return cotizacion
 
@@ -77,6 +81,19 @@ class CommandHandler:
         logger.info(
             "Cotización eliminada", extra={"cotizacion_id": str(cmd.cotizacion_id)}
         )
+
+    def handle_cancelar_cotizacion(self, cmd: CancelarCotizacion) -> Cotizacion:
+        cotizacion = self._uow.cotizaciones.get(cmd.cotizacion_id)
+        if cotizacion is None:
+            raise ValueError(f"Cotización {cmd.cotizacion_id} no encontrada")
+        cotizacion.cancelar(correlation_id=cmd.correlation_id)
+        self._uow.cotizaciones.update(cotizacion)
+        self._outbox.store(cotizacion.eventos)
+        logger.info(
+            "Cotización cancelada",
+            extra={"cotizacion_id": str(cotizacion.id)},
+        )
+        return cotizacion
 
     def handle_obtener_cotizacion(self, cotizacion_id) -> Optional[Cotizacion]:
         return self._uow.cotizaciones.get(cotizacion_id)

@@ -44,3 +44,10 @@ class ActualizarCotizacion:
 @dataclass
 class EliminarCotizacion:
     cotizacion_id: uuid.UUID
+
+
+@dataclass
+class CancelarCotizacion:
+    cotizacion_id: uuid.UUID
+    correlation_id: Optional[str] = None
+    idempotency_key: Optional[str] = None

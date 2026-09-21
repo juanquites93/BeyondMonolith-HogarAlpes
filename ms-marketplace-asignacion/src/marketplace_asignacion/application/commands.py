@@ -28,3 +28,10 @@ class SeleccionarProveedor:
     trabajo_id: uuid.UUID
     proveedor_id: uuid.UUID
     correlation_id: Optional[str] = None
+
+
+@dataclass
+class RevertirSeleccionProveedor:
+    trabajo_id: uuid.UUID
+    correlation_id: Optional[str] = None
+    idempotency_key: Optional[str] = None

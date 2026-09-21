@@ -7,6 +7,13 @@ class Settings:
         "postgresql://hogar:alpes@localhost:5432/cotizacion_db",
     )
     ECHO_SQL: bool = os.getenv("ECHO_SQL", "false").lower() == "true"
+
+    # URL alternativa para demostrar que la persistencia también puede
+    # implementarse sobre MySQL en lugar de PostgreSQL (ver infrastructure/mysql_*.py).
+    MYSQL_DATABASE_URL: str = os.getenv(
+        "MYSQL_DATABASE_URL",
+        "mysql+pymysql://hogar:alpes@localhost:3306/cotizacion_db",
+    )
     IDEMPOTENCY_TTL_SECONDS: int = int(os.getenv("IDEMPOTENCY_TTL_SECONDS", "86400"))
     APP_NAME: str = "generador-cotizacion"
     VERSION: str = "0.1.0"

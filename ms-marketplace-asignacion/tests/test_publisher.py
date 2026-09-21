@@ -22,7 +22,7 @@ def test_contrato_mensaje_publicado(db_session):
         id=str(uuid.uuid4()),
         aggregate_type="Trabajo",
         aggregate_id=str(uuid.uuid4()),
-        event_type="ProveedorSeleccionadoParaValidacion",
+        event_type="ProveedorAsignadoAlTrabajo",
         version=1,
         payload={"proveedor_id": str(uuid.uuid4()), "trabajo_id": str(uuid.uuid4())},
         occurred_at=datetime.utcnow(),
@@ -49,7 +49,7 @@ def test_contrato_mensaje_publicado(db_session):
     message = json.loads(args[0].decode("utf-8"))
 
     assert "messageId" in message
-    assert message["messageType"] == "ProveedorSeleccionadoParaValidacion"
+    assert message["messageType"] == "ProveedorAsignadoAlTrabajo"
     assert message["version"] == 1
     assert "occurredAt" in message
     assert message["correlationId"] == "corr-abc"
@@ -69,7 +69,7 @@ def test_publicacion_rutea_a_topico_correcto(db_session):
             id=str(uuid.uuid4()),
             aggregate_type="Trabajo",
             aggregate_id=str(uuid.uuid4()),
-            event_type="GenerarCotizacionCommand",
+            event_type="ProveedorSeleccionado",
             version=1,
             payload={"trabajo_id": str(uuid.uuid4())},
             occurred_at=datetime.utcnow(),
@@ -79,7 +79,7 @@ def test_publicacion_rutea_a_topico_correcto(db_session):
             id=str(uuid.uuid4()),
             aggregate_type="Trabajo",
             aggregate_id=str(uuid.uuid4()),
-            event_type="NotificarProveedorAsignadoCommand",
+            event_type="ProveedorAsignadoAlTrabajo",
             version=1,
             payload={"proveedor_id": str(uuid.uuid4())},
             occurred_at=datetime.utcnow(),
@@ -117,8 +117,7 @@ def test_publicacion_rutea_a_topico_correcto(db_session):
 
     create_calls = mock_client.create_producer.call_args_list
     topics_creados = {c.kwargs.get("topic") or c.args[0] for c in create_calls}
-    assert settings.PULSAR_COTIZACIONES_TOPIC in topics_creados
-    assert settings.PULSAR_NOTIFICACIONES_TOPIC in topics_creados
+    # Los comandos de integración ahora los publica ms-orquestador, no marketplace.
     assert settings.PULSAR_PRODUCER_TOPIC in topics_creados
 
 

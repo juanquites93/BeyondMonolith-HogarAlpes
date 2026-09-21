@@ -2,10 +2,12 @@ from __future__ import annotations
 import json
 import logging
 import threading
+import uuid
 
 from notificaciones.application.commands import (
     NotificarProveedorAsignado,
     NotificarClienteProveedorAsignado,
+    CancelarNotificacion,
 )
 from notificaciones.application.handlers import CommandHandler
 from notificaciones.infrastructure import database as db_module
@@ -61,6 +63,13 @@ def procesar_mensaje(datos: bytes) -> None:
                     correlation_id=correlation_id,
                 )
                 return handler.handle_notificar_cliente_proveedor_asignado(cmd)
+            if tipo == "CancelarNotificacionCommand":
+                cmd = CancelarNotificacion(
+                    notificacion_id=uuid.UUID(payload["notificacion_id"]),
+                    correlation_id=correlation_id,
+                    idempotency_key=idempotency_key,
+                )
+                return handler.handle_cancelar_notificacion(cmd)
             logger.warning("messageType desconocido: %s (mensaje descartado)", tipo)
             return None
 

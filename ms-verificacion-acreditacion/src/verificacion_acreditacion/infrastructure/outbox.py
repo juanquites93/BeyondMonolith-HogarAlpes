@@ -83,4 +83,14 @@ class SqlAlchemyOutboxStore(OutboxStore):
             base["no_acreditado_en"] = (
                 evento.no_acreditado_en.isoformat() if evento.no_acreditado_en else None
             )
+        if hasattr(evento, "trabajo_id"):
+            base["trabajo_id"] = evento.trabajo_id
+        if hasattr(evento, "pendiente_en"):
+            base["pendiente_en"] = (
+                evento.pendiente_en.isoformat() if evento.pendiente_en else None
+            )
+        if hasattr(evento, "revocada_en"):
+            base["revocada_en"] = (
+                evento.revocada_en.isoformat() if evento.revocada_en else None
+            )
         return base

@@ -9,6 +9,7 @@ from verificacion_acreditacion.domain.value_objects import (
     EstadoAcreditacion,
 )
 from verificacion_acreditacion.domain.exceptions import (
+    EstadoInvalidoError,
     ProveedorNoVerificadoError,
     VerificacionYaResueltaError,
 )
@@ -63,3 +64,21 @@ def test_no_rechazar_dos_veces():
     p.rechazar_verificacion()
     with pytest.raises(VerificacionYaResueltaError):
         p.rechazar_verificacion()
+
+
+def test_revocar_acreditacion_vuelve_a_no_acreditado():
+    p = Proveedor()
+    p.iniciar_verificacion()
+    p.aprobar_verificacion()
+    p.acreditar()
+    p.revocar_acreditacion()
+    assert p.estado_acreditacion == EstadoAcreditacion.NO_ACREDITADO
+    assert any(e.event_type == "AcreditacionRevocada" for e in p.eventos)
+
+
+def test_no_se_puede_revocar_acreditacion_si_no_esta_acreditado():
+    p = Proveedor()
+    p.iniciar_verificacion()
+    p.aprobar_verificacion()
+    with pytest.raises(EstadoInvalidoError):
+        p.revocar_acreditacion()

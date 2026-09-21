@@ -24,7 +24,17 @@ class DomainEvent:
 class VerificacionProveedorIniciada(DomainEvent):
     verificacion_id: uuid.UUID = None
     proveedor_id: uuid.UUID = None
+    trabajo_id: Optional[str] = None
     iniciada_en: datetime = field(default_factory=datetime.utcnow)
+
+
+@dataclass
+class VerificacionPendiente(DomainEvent):
+    verificacion_id: uuid.UUID = None
+    proveedor_id: uuid.UUID = None
+    trabajo_id: Optional[str] = None
+    motivo: Optional[str] = None
+    pendiente_en: datetime = field(default_factory=datetime.utcnow)
 
 
 @dataclass
@@ -55,3 +65,10 @@ class ProveedorNoAcreditado(DomainEvent):
     acreditacion_id: uuid.UUID = None
     motivo: Optional[str] = None
     no_acreditado_en: datetime = field(default_factory=datetime.utcnow)
+
+
+@dataclass
+class AcreditacionRevocada(DomainEvent):
+    proveedor_id: uuid.UUID = None
+    acreditacion_id: uuid.UUID = None
+    revocada_en: datetime = field(default_factory=datetime.utcnow)

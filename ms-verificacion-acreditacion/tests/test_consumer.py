@@ -52,8 +52,11 @@ def test_consumer_procesa_proveedor_seleccionado(session):
     repo = SqlAlchemyProveedorRepository(session)
     p = repo.get(proveedor_id)
     assert p is not None
-    assert p.estado_verificacion.value == "PENDIENTE"
+    assert p.estado_verificacion.value == "APROBADA"
+    assert p.estado_acreditacion.value == "ACREDITADO"
 
     rows = session.query(OutboxORM).all()
-    assert len(rows) == 1
-    assert rows[0].event_type == "VerificacionProveedorIniciada"
+    event_types = [r.event_type for r in rows]
+    assert "VerificacionProveedorIniciada" in event_types
+    assert "VerificacionProveedorAprobada" in event_types
+    assert "ProveedorAcreditado" in event_types
