@@ -2,11 +2,11 @@
 	"info": {
 		"_postman_id": "3d047313-651f-4f0c-a209-566f5c05294a",
 		"name": "Hogar Alpes - BFF (GraphQL)",
-		"description": "Colección básica para probar el BFF (FastAPI + Strawberry GraphQL) de Hogar de los Alpes. Incluye el health check y las queries/mutations expuestas sobre los 4 microservicios (marketplace, verificación, cotización, notificaciones).\n\nAjusta la variable de colección `base_url` si el BFF no corre en `http://localhost:8010`.",
+		"description": "Colección básica para probar el BFF (FastAPI + Strawberry GraphQL) de Hogar de los Alpes. Incluye el health check y las queries/mutations expuestas sobre los 4 microservicios (marketplace, verificación, cotización, notificaciones).\n\nAjusta la variable de colección `base_url` si el BFF no corre en `http://35.153.201.103:8010`.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"variable": [
-		{ "key": "base_url", "value": "http://localhost:8010", "type": "string" },
+		{ "key": "base_url", "value": "http://35.153.201.103:8010", "type": "string" },
 		{ "key": "trabajo_id", "value": "120891b9-4cb0-4549-b0a4-bf97116dbb36", "type": "string" },
 		{ "key": "proveedor_id", "value": "dd82297a-476c-44ff-8add-f2e007fa910b", "type": "string" },
 		{ "key": "cotizacion_id", "value": "dcaadb6c-7ab0-4b02-9402-3e8ebea27fd7", "type": "string" },
