@@ -1,0 +1,200 @@
+hogar_alpes_marketplace  | INFO:     172.20.0.1:49884 - "POST /trabajos/460483bd-a0f5-4ee5-a002-a0b2adadbd6d/publicar HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:07:16,196 INFO marketplace_asignacion.application.handlers Proveedor seleccionado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:49886 - "POST /trabajos/460483bd-a0f5-4ee5-a002-a0b2adadbd6d/seleccionar-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47798 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:07:20,324 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:07:20,332 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:07:20,340 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:07:20,348 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:07:20,355 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:07:20,358 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:53398 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:07:34,470 INFO marketplace_asignacion.application.handlers Selección de proveedor revertida
+hogar_alpes_marketplace  | INFO:     172.20.0.8:37996 - "POST /trabajos/460483bd-a0f5-4ee5-a002-a0b2adadbd6d/revertir-seleccion-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:07:35,367 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:07:35,370 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:52518 - "GET /trabajos/460483bd-a0f5-4ee5-a002-a0b2adadbd6d HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55442 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:33342 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:49010 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55824 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:38500 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:59764 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:45428 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:35642 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:56420 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:33422 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:34516 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:46040 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:52828 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:38376 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:48674 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:58406 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:50094 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:10:27.769 INFO  [131167907075776] ProducerStatsImpl:87 | Producer [persistent://hogar/alpes/marketplace.eventos, marketplace-asignacion-producer] , ProducerStatsImpl (numMsgsSent_ = 12, numBytesSent_ = 9232, sendMap_ = {[Key: Ok, Value: 12], }, latencyAccumulator_ = Latencies [ 50pct: 2.918ms, 90pct: 2.998ms, 99pct: 3.257ms, 99.9pct: 3.326ms], totalMsgsSent_ = 29, totalBytesSent_ = 22341, totalAcksReceived_ = , totalSendMap_ = {[Key: Ok, Value: 29], }, totalLatencyAccumulator_ = Latencies [ 50pct: 3.04952ms, 90pct: 3.39489ms, 99pct: 3.541ms, 99.9pct: 3.846ms])
+hogar_alpes_marketplace  | INFO:     127.0.0.1:59914 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:48106 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:48782 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:51348 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:33356 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:42928 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:60354 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:52952 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:50346 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:57578 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:43870 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47410 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:41864 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:38424 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:57770 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:59680 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:13:09,327 INFO marketplace_asignacion.application.handlers Trabajo solicitado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:60270 - "POST /trabajos/solicitar HTTP/1.1" 201 Created
+hogar_alpes_marketplace  | 2026-09-21 04:13:10,591 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:13:10,597 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:52768 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:13:20,201 INFO marketplace_asignacion.application.handlers Trabajo publicado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:54550 - "POST /trabajos/3d1fea54-a873-41c6-98f0-ee37c509981d/publicar HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:13:20,604 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:13:20,609 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:13:20,610 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:43430 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:13:24,841 INFO marketplace_asignacion.application.handlers Proveedor seleccionado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:54550 - "POST /trabajos/3d1fea54-a873-41c6-98f0-ee37c509981d/seleccionar-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:13:25,617 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:13:25,624 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:13:25,627 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:48600 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:13:34,713 INFO marketplace_asignacion.application.handlers Selección de proveedor revertida
+hogar_alpes_marketplace  | INFO:     172.20.0.8:43490 - "POST /trabajos/3d1fea54-a873-41c6-98f0-ee37c509981d/revertir-seleccion-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:13:35,637 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:13:35,641 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:43988 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:59396 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:38494 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55212 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:57806 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55118 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:42702 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:37206 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:39822 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:58540 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:43810 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47198 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:37048 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:44008 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:51640 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:43396 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:35442 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:40168 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:34260 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:35882 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:38006 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:57948 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:39710 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:58842 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:36268 - "GET /trabajos/3d1fea54-a873-41c6-98f0-ee37c509981d HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:46618 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:42108 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:42832 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:52936 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:35022 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55478 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:38318 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:36774 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55510 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:35554 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:53270 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:39604 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:60766 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:57226 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:42178 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:43884 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:20:27.769 INFO  [131167907075776] ProducerStatsImpl:87 | Producer [persistent://hogar/alpes/marketplace.eventos, marketplace-asignacion-producer] , ProducerStatsImpl (numMsgsSent_ = 6, numBytesSent_ = 4580, sendMap_ = {[Key: Ok, Value: 6], }, latencyAccumulator_ = Latencies [ 50pct: 2.132ms, 90pct: 2.829ms, 99pct: 0ms, 99.9pct: 0ms], totalMsgsSent_ = 35, totalBytesSent_ = 26921, totalAcksReceived_ = , totalSendMap_ = {[Key: Ok, Value: 35], }, totalLatencyAccumulator_ = Latencies [ 50pct: 3.04952ms, 90pct: 3.45962ms, 99pct: 3.66459ms, 99.9pct: 3.869ms])
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47760 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:56804 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:45504 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:33774 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:56368 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:49300 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:60690 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:41038 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:35802 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55582 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:48754 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:33526 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:53348 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:36438 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:39716 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:60246 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:48452 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:50510 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:55600 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:57166 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:53770 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:56468 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47748 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:58428 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47088 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:42100 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:56348 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:44998 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:58312 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:56220 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:48942 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:35932 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:25:43,391 INFO marketplace_asignacion.application.handlers Trabajo solicitado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:37552 - "POST /trabajos/solicitar HTTP/1.1" 201 Created
+hogar_alpes_marketplace  | 2026-09-21 04:25:43,441 INFO marketplace_asignacion.application.handlers Trabajo publicado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:37560 - "POST /trabajos/ce23b382-2903-4153-bec1-924dd0d30476/publicar HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:37574 - "POST /debug/acreditar-proveedor?proveedor_id=a49f51d5-1c96-40fb-87d5-b71a023332eb HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:25:43,502 INFO marketplace_asignacion.application.handlers Proveedor seleccionado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:37576 - "POST /trabajos/ce23b382-2903-4153-bec1-924dd0d30476/seleccionar-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:49368 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:25:46,071 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:25:46,077 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:25:46,082 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:25:46,086 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:25:46,091 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:25:46,092 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:48202 - "POST /trabajos/ce23b382-2903-4153-bec1-924dd0d30476/publicar HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:48214 - "POST /debug/acreditar-proveedor?proveedor_id=a49f51d5-1c96-40fb-87d5-b71a023332eb HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:48226 - "POST /trabajos/ce23b382-2903-4153-bec1-924dd0d30476/seleccionar-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:58142 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:25:55,180 INFO marketplace_asignacion.application.handlers Selección de proveedor revertida
+hogar_alpes_marketplace  | INFO:     172.20.0.8:37452 - "POST /trabajos/ce23b382-2903-4153-bec1-924dd0d30476/revertir-seleccion-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:25:56,098 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:25:56,099 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47368 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:44548 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:26:19,866 INFO marketplace_asignacion.application.handlers Trabajo solicitado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:59872 - "POST /trabajos/solicitar HTTP/1.1" 201 Created
+hogar_alpes_marketplace  | 2026-09-21 04:26:19,914 INFO marketplace_asignacion.application.handlers Trabajo publicado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:59884 - "POST /trabajos/96a2f8ca-7137-49c3-bb56-ea2d1eaf4311/publicar HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:59890 - "POST /debug/acreditar-proveedor?proveedor_id=f61d5ab6-cb75-47ba-9b33-795612f82f5b HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:26:19,936 INFO marketplace_asignacion.application.handlers Proveedor seleccionado
+hogar_alpes_marketplace  | INFO:     172.20.0.1:59900 - "POST /trabajos/96a2f8ca-7137-49c3-bb56-ea2d1eaf4311/seleccionar-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:26:21,113 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:26:21,118 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:26:21,123 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:26:21,128 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:26:21,133 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:26:21,135 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:58004 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:49496 - "GET /admin/dlq HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:56292 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:44544 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:39858 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:47330 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:33902 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:27:16,570 INFO marketplace_asignacion.application.handlers Selección de proveedor revertida
+hogar_alpes_marketplace  | INFO:     172.20.0.8:50200 - "POST /trabajos/96a2f8ca-7137-49c3-bb56-ea2d1eaf4311/revertir-seleccion-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | 2026-09-21 04:27:21,163 INFO marketplace_asignacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_marketplace  | 2026-09-21 04:27:21,165 INFO marketplace_asignacion.main Outbox publicado
+hogar_alpes_marketplace  | INFO:     127.0.0.1:57992 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:41406 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:34302 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:52840 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:43386 - "POST /trabajos/solicitar HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     172.20.0.1:43392 - "POST /trabajos/ce23b382-2903-4153-bec1-924dd0d30476/seleccionar-proveedor HTTP/1.1" 200 OK
+hogar_alpes_marketplace  | INFO:     127.0.0.1:56550 - "GET /health HTTP/1.1" 200 OK

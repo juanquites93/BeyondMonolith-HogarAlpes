@@ -1,0 +1,160 @@
+[
+    {
+        "id": "ff2eb99b-29e8-42da-ba59-441daa347289",
+        "saga_id": "008a115d-e79a-4250-b42a-9166f40f2d76",
+        "correlation_id": "corr-saga-demo-001",
+        "message_id": "5d1463c1-97d2-4b63-a377-fb4b513b18b4",
+        "causation_id": null,
+        "message_type": "NotificacionEnviada",
+        "producer": "ms-notificaciones",
+        "status": "RECIBIDO",
+        "payload": {
+            "event_id": "ead1153d-449e-425b-af3e-9efa37dc7a18",
+            "event_type": "NotificacionEnviada",
+            "version": 1,
+            "occurred_at": "2026-09-21T03:21:15.104280",
+            "correlation_id": "corr-saga-demo-001",
+            "aggregate_id": "c2561259-d2be-4089-bc80-635bca0ebef4",
+            "notificacion_id": "c2561259-d2be-4089-bc80-635bca0ebef4",
+            "destinatario_id": "22222222-2222-2222-2222-222222222222",
+            "canal": "EMAIL",
+            "enviada_en": "2026-09-21T03:21:15.104283",
+            "trabajo_id": "c566bb6a-5901-488e-b5cf-eed9c024f077"
+        },
+        "error_message": null,
+        "occurred_at": "2026-09-21T03:21:15.158307"
+    },
+    {
+        "id": "b3000f6a-9dea-4bec-81b9-692335303f3c",
+        "saga_id": "008a115d-e79a-4250-b42a-9166f40f2d76",
+        "correlation_id": "corr-saga-demo-001",
+        "message_id": "0b42647e-08a1-443f-9641-b95853fe57b5",
+        "causation_id": "754b1f7e-2e4e-4f4f-bd31-6877c81b69c8",
+        "message_type": "NotificarProveedorAsignadoCommand",
+        "producer": "ms-orquestador",
+        "status": "ENVIADO",
+        "payload": {
+            "proveedor_id": "22222222-2222-2222-2222-222222222222",
+            "trabajo_id": "c566bb6a-5901-488e-b5cf-eed9c024f077",
+            "cliente_id": null,
+            "detalles_trabajo": {
+                "descripcion": "",
+                "categoria": "",
+                "ubicacion": {
+                    "direccion": "",
+                    "ciudad": ""
+                }
+            }
+        },
+        "error_message": null,
+        "occurred_at": "2026-09-21T03:21:15.076042"
+    },
+    {
+        "id": "a31de4a7-cb1f-4746-8242-b68ae5ab1bd4",
+        "saga_id": "008a115d-e79a-4250-b42a-9166f40f2d76",
+        "correlation_id": "corr-saga-demo-001",
+        "message_id": "754b1f7e-2e4e-4f4f-bd31-6877c81b69c8",
+        "causation_id": null,
+        "message_type": "CotizacionSolicitada",
+        "producer": "generador-cotizacion",
+        "status": "RECIBIDO",
+        "payload": {
+            "event_id": "ee390f7c-12c0-4b63-85b7-d19461e4481e",
+            "event_type": "CotizacionSolicitada",
+            "version": 1,
+            "occurred_at": "2026-09-21T03:21:13.617719",
+            "correlation_id": "corr-saga-demo-001",
+            "aggregate_id": "badf7d5d-8aea-499d-aa2c-c6be4534ce7d",
+            "cotizacion_id": "badf7d5d-8aea-499d-aa2c-c6be4534ce7d",
+            "trabajo_id": "c566bb6a-5901-488e-b5cf-eed9c024f077",
+            "proveedor_id": null,
+            "monto": null,
+            "moneda": "COP",
+            "descripcion": ""
+        },
+        "error_message": null,
+        "occurred_at": "2026-09-21T03:21:15.059859"
+    },
+    {
+        "id": "88a2178d-2b33-43e1-9162-eea81d12c5ca",
+        "saga_id": "008a115d-e79a-4250-b42a-9166f40f2d76",
+        "correlation_id": "corr-saga-demo-001",
+        "message_id": "0e5557cb-e16f-4c08-8322-7e3bc0c4e332",
+        "causation_id": "d5ea11cb-19f9-4945-8533-0fa47b86583f",
+        "message_type": "GenerarCotizacionCommand",
+        "producer": "ms-orquestador",
+        "status": "ENVIADO",
+        "payload": {
+            "trabajo_id": "c566bb6a-5901-488e-b5cf-eed9c024f077",
+            "cliente_id": null,
+            "proveedor_id": "22222222-2222-2222-2222-222222222222",
+            "descripcion": "",
+            "alcance": {},
+            "ubicacion": null
+        },
+        "error_message": null,
+        "occurred_at": "2026-09-21T03:21:13.611020"
+    },
+    {
+        "id": "e7619b17-045f-4911-892c-b273cb1cc2cb",
+        "saga_id": "008a115d-e79a-4250-b42a-9166f40f2d76",
+        "correlation_id": "corr-saga-demo-001",
+        "message_id": "d5ea11cb-19f9-4945-8533-0fa47b86583f",
+        "causation_id": null,
+        "message_type": "ProveedorAcreditado",
+        "producer": "verificacion-acreditacion",
+        "status": "RECIBIDO",
+        "payload": {
+            "event_id": "2882980a-13e9-49c9-b3c9-c1d2dc17b539",
+            "event_type": "ProveedorAcreditado",
+            "version": 1,
+            "occurred_at": "2026-09-21T03:05:53.061314",
+            "correlation_id": "corr-saga-demo-001",
+            "aggregate_id": "22222222-2222-2222-2222-222222222222",
+            "proveedor_id": "22222222-2222-2222-2222-222222222222",
+            "acreditacion_id": "7bc0357b-ea96-4ea0-8c86-e04f131c3c31",
+            "acreditado_en": "2026-09-21T03:05:53.061315"
+        },
+        "error_message": null,
+        "occurred_at": "2026-09-21T03:21:13.595783"
+    },
+    {
+        "id": "dcf26e5a-7a7b-4816-b81d-a2cd698970e9",
+        "saga_id": "008a115d-e79a-4250-b42a-9166f40f2d76",
+        "correlation_id": "corr-saga-demo-001",
+        "message_id": "e08a94e6-2b52-40ae-af0d-d7296fc5506e",
+        "causation_id": "6f858212-b9e0-4933-956f-4d580845c4ce",
+        "message_type": "ProveedorSeleccionadoParaValidacion",
+        "producer": "ms-orquestador",
+        "status": "ENVIADO",
+        "payload": {
+            "proveedor_id": "22222222-2222-2222-2222-222222222222",
+            "trabajo_id": "c566bb6a-5901-488e-b5cf-eed9c024f077"
+        },
+        "error_message": null,
+        "occurred_at": "2026-09-21T03:05:53.043693"
+    },
+    {
+        "id": "3b3633b3-c536-4bd5-913c-27ba39167455",
+        "saga_id": "008a115d-e79a-4250-b42a-9166f40f2d76",
+        "correlation_id": "corr-saga-demo-001",
+        "message_id": "6f858212-b9e0-4933-956f-4d580845c4ce",
+        "causation_id": null,
+        "message_type": "ProveedorSeleccionado",
+        "producer": "marketplace-asignacion",
+        "status": "RECIBIDO",
+        "payload": {
+            "event_id": "980fdc94-7ee4-4b68-8786-273cfc852c3a",
+            "event_type": "ProveedorSeleccionado",
+            "version": 1,
+            "occurred_at": "2026-09-21T03:05:50.370377",
+            "correlation_id": "corr-saga-demo-001",
+            "aggregate_id": "c566bb6a-5901-488e-b5cf-eed9c024f077",
+            "trabajo_id": "c566bb6a-5901-488e-b5cf-eed9c024f077",
+            "proveedor_id": "22222222-2222-2222-2222-222222222222",
+            "seleccionado_en": "2026-09-21T03:05:50.370379"
+        },
+        "error_message": null,
+        "occurred_at": "2026-09-21T03:05:53.024278"
+    }
+]

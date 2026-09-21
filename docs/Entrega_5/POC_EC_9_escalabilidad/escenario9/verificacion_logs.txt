@@ -1,0 +1,273 @@
+hogar_alpes_verificacion  | INFO:     Started server process [1]
+hogar_alpes_verificacion  | INFO:     Waiting for application startup.
+hogar_alpes_verificacion  | 2026-09-21 04:05:14,310 INFO verificacion_acreditacion.main Iniciando consumer Pulsar en background thread
+hogar_alpes_verificacion  | 2026-09-21 04:05:14,310 INFO verificacion_acreditacion.main Intentando iniciar consumer Pulsar (intento 1/10)
+hogar_alpes_verificacion  | 2026-09-21 04:05:14,310 INFO verificacion_acreditacion.main Iniciando outbox worker
+hogar_alpes_verificacion  | 2026-09-21 04:05:14,311 INFO verificacion_acreditacion.main Outbox worker iniciado
+hogar_alpes_verificacion  | INFO:     Application startup complete.
+hogar_alpes_verificacion  | INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+hogar_alpes_verificacion  | 2026-09-21 04:05:14,326 INFO verificacion_acreditacion.infrastructure.pulsar_client Pulsar client created
+hogar_alpes_verificacion  | 2026-09-21 04:05:14,327 INFO verificacion_acreditacion.infrastructure.pulsar_client Pulsar client created
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.327 INFO  [134602990696128] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.327 INFO  [134602990696128] ConnectionPool:148 | Created connection for pulsar://pulsar:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.327 INFO  [134602982303424] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.327 INFO  [134602982303424] ConnectionPool:148 | Created connection for pulsar://pulsar:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.329 INFO  [134602723157696] ClientConnection:420 | [172.20.0.7:49884 -> 172.20.0.3:6650] Connected to broker
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.329 INFO  [134602714764992] ClientConnection:420 | [172.20.0.7:49894 -> 172.20.0.3:6650] Connected to broker
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.330 INFO  [134602723157696] HandlerBase:112 | [persistent://hogar/alpes/verificacion.comandos, verificacion-sub, 0] Getting connection from pool
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.330 INFO  [134602714764992] HandlerBase:112 | [persistent://hogar/alpes/verificacion.eventos, verificacion-acreditacion-producer] Getting connection from pool
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.331 INFO  [134602714764992] BinaryProtoLookupService:85 | Lookup response for persistent://hogar/alpes/verificacion.eventos, lookup-broker-url pulsar://localhost:6650, from [172.20.0.7:49894 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.332 INFO  [134602714764992] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.331 INFO  [134602723157696] BinaryProtoLookupService:85 | Lookup response for persistent://hogar/alpes/verificacion.comandos, lookup-broker-url pulsar://localhost:6650, from [172.20.0.7:49884 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.332 INFO  [134602714764992] ConnectionPool:148 | Created connection for pulsar://localhost:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.332 INFO  [134602723157696] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.332 INFO  [134602723157696] ConnectionPool:148 | Created connection for pulsar://localhost:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.332 INFO  [134602714764992] ClientConnection:422 | [172.20.0.7:49896 -> 172.20.0.3:6650] Connected to broker through proxy. Logical broker: pulsar://localhost:6650, proxy: , physical address:pulsar://pulsar:6650
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.332 INFO  [134602723157696] ClientConnection:422 | [172.20.0.7:49910 -> 172.20.0.3:6650] Connected to broker through proxy. Logical broker: pulsar://localhost:6650, proxy: , physical address:pulsar://pulsar:6650
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.333 INFO  [134602714764992] ProducerImpl:147 | Creating producer for topic:persistent://hogar/alpes/verificacion.eventos, producerName:verificacion-acreditacion-producer on [172.20.0.7:49896 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.334 INFO  [134602723157696] ConsumerImpl:336 | [persistent://hogar/alpes/verificacion.comandos, verificacion-sub, 0] Created consumer on broker [172.20.0.7:49910 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.334 INFO  [134602723157696] MultiTopicsConsumerImpl:318 | Successfully Subscribed to a single partition of topic in TopicsConsumer. Partitions need to create : 0
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.334 INFO  [134602723157696] MultiTopicsConsumerImpl:146 | Successfully Subscribed to Topics
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.334 INFO  [134602723157696] HandlerBase:133 | Finished connecting to broker after 3 ms
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.334 INFO  [134602714764992] ProducerImpl:222 | [persistent://hogar/alpes/verificacion.eventos, verificacion-acreditacion-producer] Created producer on broker [172.20.0.7:49896 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:05:14.334 INFO  [134602714764992] HandlerBase:133 | Finished connecting to broker after 3 ms
+hogar_alpes_verificacion  | 2026-09-21 04:05:14,334 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Pulsar consumer started
+hogar_alpes_verificacion  | INFO:     127.0.0.1:43938 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:44050 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:05:34,754 INFO verificacion_acreditacion.application.handlers Verificación procesada
+hogar_alpes_verificacion  | INFO:     172.20.0.1:47002 - "POST /verificaciones HTTP/1.1" 201 Created
+hogar_alpes_verificacion  | 2026-09-21 04:05:39,357 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:05:39,361 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:38512 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:05:44,797 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:05:44,802 INFO verificacion_acreditacion.application.handlers Acreditación revocada
+hogar_alpes_verificacion  | 2026-09-21 04:05:44,805 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | 2026-09-21 04:05:49,372 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:05:49,375 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:37492 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34376 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:45686 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:49144 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:42030 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:58612 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:06:50,315 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:06:50,319 INFO verificacion_acreditacion.application.handlers Verificación procesada
+hogar_alpes_verificacion  | 2026-09-21 04:06:50,322 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | 2026-09-21 04:06:54,415 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:06:54,417 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:60760 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:41298 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52934 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:07:20,371 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:07:20,375 INFO verificacion_acreditacion.application.handlers Verificación procesada
+hogar_alpes_verificacion  | 2026-09-21 04:07:20,377 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | 2026-09-21 04:07:24,437 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:07:24,442 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:44718 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:07:29,909 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:07:29,913 INFO verificacion_acreditacion.application.handlers Acreditación revocada
+hogar_alpes_verificacion  | 2026-09-21 04:07:29,917 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | 2026-09-21 04:07:34,449 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:07:34,452 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52038 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:46184 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48856 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:56960 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:46106 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:47562 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:40588 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34454 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:46346 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:55586 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:43722 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:33520 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:57646 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:60364 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:50808 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48222 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34528 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:49362 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52558 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:51480 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52020 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:43020 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:44614 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:54366 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:57720 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:43436 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34358 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52972 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:58686 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:53612 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:32952 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:60146 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:45326 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:54338 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:49758 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:13:25,633 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:13:25,637 INFO verificacion_acreditacion.application.handlers Verificación procesada
+hogar_alpes_verificacion  | 2026-09-21 04:13:25,640 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:51940 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:13:29,686 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:13:29,689 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | 2026-09-21 04:13:33,302 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:13:33,304 INFO verificacion_acreditacion.application.handlers Acreditación revocada
+hogar_alpes_verificacion  | 2026-09-21 04:13:33,307 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | 2026-09-21 04:13:34,697 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:13:34,700 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:47904 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48132 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:54236 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:33236 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52480 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52938 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:36258 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:60466 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:60090 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:49160 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:15:14.330 INFO  [134602723157696] ConsumerStatsImpl:59 | Consumer [persistent://hogar/alpes/verificacion.comandos, verificacion-sub, 0] , ConsumerStatsImpl (numBytesRecieved_ = 3296, totalNumBytesRecieved_ = 3296, receivedMsgMap_ = {[Key: Ok, Value: 6], }, ackedMsgMap_ = {[Key: {Result: Ok, ackType: 0}, Value: 6], }, totalReceivedMsgMap_ = {[Key: Ok, Value: 6], }, totalAckedMsgMap_ = {[Key: {Result: Ok, ackType: 0}, Value: 6], })
+hogar_alpes_verificacion  | 2026-09-21 04:15:14.331 INFO  [134602714764992] ProducerStatsImpl:87 | Producer [persistent://hogar/alpes/verificacion.eventos, verificacion-acreditacion-producer] , ProducerStatsImpl (numMsgsSent_ = 7, numBytesSent_ = 5099, sendMap_ = {[Key: Ok, Value: 7], }, latencyAccumulator_ = Latencies [ 50pct: 2.873ms, 90pct: 2.853ms, 99pct: 3.567ms, 99.9pct: 0ms], totalMsgsSent_ = 7, totalBytesSent_ = 5099, totalAcksReceived_ = , totalSendMap_ = {[Key: Ok, Value: 7], }, totalLatencyAccumulator_ = Latencies [ 50pct: 2.873ms, 90pct: 2.853ms, 99pct: 3.567ms, 99.9pct: 0ms])
+hogar_alpes_verificacion  | INFO:     127.0.0.1:47286 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:56780 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:57652 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:40968 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:58354 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:55396 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:40694 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:51376 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:50244 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34220 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:56192 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:39764 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:42882 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:35822 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:54868 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:44600 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:38516 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52004 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:37636 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:50008 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:45772 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:41466 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:51554 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:36666 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:36144 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:56826 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52768 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:39308 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:36706 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:57370 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:41254 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:32804 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:45244 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:52850 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48240 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:35454 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:44760 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48964 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:58754 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:36692 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48388 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:41008 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48418 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:43454 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34964 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34076 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:34764 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:36496 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:38548 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:43344 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:55984 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:39738 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:50238 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:35866 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:50112 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:53828 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:40262 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:60478 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:53560 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:25:14.331 INFO  [134602723157696] ConsumerStatsImpl:59 | Consumer [persistent://hogar/alpes/verificacion.comandos, verificacion-sub, 0] , ConsumerStatsImpl (numBytesRecieved_ = 0, totalNumBytesRecieved_ = 3296, receivedMsgMap_ = {}, ackedMsgMap_ = {}, totalReceivedMsgMap_ = {[Key: Ok, Value: 6], }, totalAckedMsgMap_ = {[Key: {Result: Ok, ackType: 0}, Value: 6], })
+hogar_alpes_verificacion  | 2026-09-21 04:25:14.331 INFO  [134602714764992] ProducerStatsImpl:87 | Producer [persistent://hogar/alpes/verificacion.eventos, verificacion-acreditacion-producer] , ProducerStatsImpl (numMsgsSent_ = 0, numBytesSent_ = 0, sendMap_ = {}, latencyAccumulator_ = Latencies [ 50pct: 0ms, 90pct: 0ms, 99pct: 0ms, 99.9pct: 0ms], totalMsgsSent_ = 7, totalBytesSent_ = 5099, totalAcksReceived_ = , totalSendMap_ = {[Key: Ok, Value: 7], }, totalLatencyAccumulator_ = Latencies [ 50pct: 2.873ms, 90pct: 2.853ms, 99pct: 3.567ms, 99.9pct: 0ms])
+hogar_alpes_verificacion  | INFO:     127.0.0.1:48070 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     172.20.0.1:42400 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:42500 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:42218 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:25:46,102 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:25:46,106 INFO verificacion_acreditacion.application.handlers Verificación procesada
+hogar_alpes_verificacion  | 2026-09-21 04:25:46,108 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:43160 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:25:50,145 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:25:50,148 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:25:50,152 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:25:50,157 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | 2026-09-21 04:25:55,008 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:25:55,011 INFO verificacion_acreditacion.application.handlers Acreditación revocada
+hogar_alpes_verificacion  | 2026-09-21 04:25:55,014 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | 2026-09-21 04:25:55,164 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:25:55,166 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:57412 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     172.20.0.1:45676 - "GET /proveedores/a49f51d5-1c96-40fb-87d5-b71a023332eb/estado HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     Shutting down
+hogar_alpes_verificacion  | INFO:     Waiting for application shutdown.
+hogar_alpes_verificacion  | INFO:     Application shutdown complete.
+hogar_alpes_verificacion  | INFO:     Finished server process [1]
+hogar_alpes_verificacion  | INFO:     Started server process [1]
+hogar_alpes_verificacion  | INFO:     Waiting for application startup.
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,497 INFO verificacion_acreditacion.main Iniciando consumer Pulsar en background thread
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,498 INFO verificacion_acreditacion.main Intentando iniciar consumer Pulsar (intento 1/10)
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,498 INFO verificacion_acreditacion.main Iniciando outbox worker
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,499 INFO verificacion_acreditacion.main Outbox worker iniciado
+hogar_alpes_verificacion  | INFO:     Application startup complete.
+hogar_alpes_verificacion  | INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,514 INFO verificacion_acreditacion.infrastructure.pulsar_client Pulsar client created
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,514 INFO verificacion_acreditacion.infrastructure.pulsar_client Pulsar client created
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.514 INFO  [124632387696320] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.514 INFO  [124632387696320] ConnectionPool:148 | Created connection for pulsar://pulsar:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.515 INFO  [124632379303616] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.515 INFO  [124632379303616] ConnectionPool:148 | Created connection for pulsar://pulsar:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.516 INFO  [124632250160832] ClientConnection:420 | [172.20.0.7:41384 -> 172.20.0.3:6650] Connected to broker
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.516 INFO  [124632258553536] ClientConnection:420 | [172.20.0.7:41390 -> 172.20.0.3:6650] Connected to broker
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.518 INFO  [124632258553536] HandlerBase:112 | [persistent://hogar/alpes/verificacion.comandos, verificacion-sub, 0] Getting connection from pool
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.518 INFO  [124632250160832] HandlerBase:112 | [persistent://hogar/alpes/verificacion.eventos, verificacion-acreditacion-producer] Getting connection from pool
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.519 INFO  [124632250160832] BinaryProtoLookupService:85 | Lookup response for persistent://hogar/alpes/verificacion.eventos, lookup-broker-url pulsar://localhost:6650, from [172.20.0.7:41384 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.519 INFO  [124632250160832] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.519 INFO  [124632250160832] ConnectionPool:148 | Created connection for pulsar://localhost:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.519 INFO  [124632258553536] BinaryProtoLookupService:85 | Lookup response for persistent://hogar/alpes/verificacion.comandos, lookup-broker-url pulsar://localhost:6650, from [172.20.0.7:41390 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.519 INFO  [124632258553536] ClientConnection:209 | [<none> -> pulsar://pulsar:6650] Create ClientConnection, timeout=10000
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.519 INFO  [124632258553536] ConnectionPool:148 | Created connection for pulsar://localhost:6650-pulsar://pulsar:6650-0
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.520 INFO  [124632250160832] ClientConnection:422 | [172.20.0.7:41396 -> 172.20.0.3:6650] Connected to broker through proxy. Logical broker: pulsar://localhost:6650, proxy: , physical address:pulsar://pulsar:6650
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.520 INFO  [124632258553536] ClientConnection:422 | [172.20.0.7:41412 -> 172.20.0.3:6650] Connected to broker through proxy. Logical broker: pulsar://localhost:6650, proxy: , physical address:pulsar://pulsar:6650
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.521 INFO  [124632250160832] ProducerImpl:147 | Creating producer for topic:persistent://hogar/alpes/verificacion.eventos, producerName:verificacion-acreditacion-producer on [172.20.0.7:41396 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.523 INFO  [124632258553536] ConsumerImpl:336 | [persistent://hogar/alpes/verificacion.comandos, verificacion-sub, 0] Created consumer on broker [172.20.0.7:41412 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.523 INFO  [124632258553536] MultiTopicsConsumerImpl:318 | Successfully Subscribed to a single partition of topic in TopicsConsumer. Partitions need to create : 0
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.523 INFO  [124632258553536] MultiTopicsConsumerImpl:146 | Successfully Subscribed to Topics
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.523 INFO  [124632258553536] HandlerBase:133 | Finished connecting to broker after 5 ms
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.523 INFO  [124632250160832] ProducerImpl:222 | [persistent://hogar/alpes/verificacion.eventos, verificacion-acreditacion-producer] Created producer on broker [172.20.0.7:41396 -> 172.20.0.3:6650] 
+hogar_alpes_verificacion  | 2026-09-21 04:27:06.523 INFO  [124632250160832] HandlerBase:133 | Finished connecting to broker after 4 ms
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,523 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Pulsar consumer started
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,525 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,534 INFO verificacion_acreditacion.application.handlers Verificación procesada
+hogar_alpes_verificacion  | 2026-09-21 04:27:06,540 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | 2026-09-21 04:27:11,530 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:27:11,533 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:27:11,536 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:27:11,542 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | 2026-09-21 04:27:16,084 INFO verificacion_acreditacion.interfaces.messaging.consumer Procesando mensaje entrante
+hogar_alpes_verificacion  | 2026-09-21 04:27:16,086 INFO verificacion_acreditacion.application.handlers Acreditación revocada
+hogar_alpes_verificacion  | 2026-09-21 04:27:16,088 INFO verificacion_acreditacion.infrastructure.pulsar_consumer Mensaje procesado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:46380 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:27:16,549 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:27:16,555 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:49488 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:47116 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     172.20.0.1:33756 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     172.20.0.1:44870 - "GET /proveedores/f61d5ab6-cb75-47ba-9b33-795612f82f5b/estado HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:60108 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     127.0.0.1:41118 - "GET /health HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | INFO:     172.20.0.1:53224 - "POST /verificaciones/f61d5ab6-cb75-47ba-9b33-795612f82f5b/aprobar HTTP/1.1" 409 Conflict
+hogar_alpes_verificacion  | 2026-09-21 04:27:57,509 INFO verificacion_acreditacion.application.handlers Proveedor acreditado
+hogar_alpes_verificacion  | INFO:     172.20.0.1:53240 - "POST /acreditaciones HTTP/1.1" 201 Created
+hogar_alpes_verificacion  | INFO:     172.20.0.1:53248 - "GET /proveedores/f61d5ab6-cb75-47ba-9b33-795612f82f5b/estado HTTP/1.1" 200 OK
+hogar_alpes_verificacion  | 2026-09-21 04:28:01,584 INFO verificacion_acreditacion.infrastructure.pulsar_producer Evento publicado a Pulsar
+hogar_alpes_verificacion  | 2026-09-21 04:28:01,586 INFO verificacion_acreditacion.main Outbox publicado
+hogar_alpes_verificacion  | INFO:     127.0.0.1:36796 - "GET /health HTTP/1.1" 200 OK

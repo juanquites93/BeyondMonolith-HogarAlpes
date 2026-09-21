@@ -1,0 +1,139 @@
+{
+  "info": {
+    "_postman_id": "c739af34-294f-42a2-a39b-b10a1ca8b3b8",
+    "name": "HogarAlpes_Escenario1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "16872535"
+  },
+  "item": [
+    {
+      "name": "Solicitar cotización",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"trabajo_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"proveedor_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"monto\": 0,\r\n  \"descripcion\": \"string\",\r\n  \"moneda\": \"COP\",\r\n  \"fecha_validez\": \"2026-09-18T20:18:53.011Z\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8002/cotizaciones/solicitar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8002",
+          "path": [
+            "cotizaciones",
+            "solicitar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener cotización",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8002/cotizaciones/9274934d-b02c-429d-b833-46ab5039090d",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8002",
+          "path": [
+            "cotizaciones",
+            "9274934d-b02c-429d-b833-46ab5039090d"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar cotizaciones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8002/cotizaciones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8002",
+          "path": [
+            "cotizaciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar cotizaciones",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"proveedor_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"monto\": 0,\r\n  \"descripcion\": \"Esta es una prueba\",\r\n  \"estado\": \"SOLICITADA\",\r\n  \"fecha_validez\": \"2026-09-18T20:26:09.339Z\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8002/cotizaciones/9274934d-b02c-429d-b833-46ab5039090d",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8002",
+          "path": [
+            "cotizaciones",
+            "9274934d-b02c-429d-b833-46ab5039090d"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar cotización",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://3.81.65.197:8002/cotizaciones/73c5fdb9-0279-4fa1-9a74-1b76b1adea25",
+          "protocol": "http",
+          "host": [
+            "3",
+            "81",
+            "65",
+            "197"
+          ],
+          "port": "8002",
+          "path": [
+            "cotizaciones",
+            "73c5fdb9-0279-4fa1-9a74-1b76b1adea25"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
