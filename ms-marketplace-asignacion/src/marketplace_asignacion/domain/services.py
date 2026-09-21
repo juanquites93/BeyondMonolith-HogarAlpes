@@ -46,3 +46,15 @@ class AsignacionService:
         )
         self._repo.update(trabajo)
         return trabajo
+
+    def revertir_seleccion_proveedor(
+        self,
+        trabajo_id: uuid.UUID,
+        correlation_id: Optional[str] = None,
+    ) -> Trabajo:
+        trabajo = self._repo.get(trabajo_id)
+        if trabajo is None:
+            raise ValueError(f"Trabajo {trabajo_id} no encontrado")
+        trabajo.revertir_seleccion_proveedor(correlation_id=correlation_id)
+        self._repo.update(trabajo)
+        return trabajo

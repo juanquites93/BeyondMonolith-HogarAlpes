@@ -15,6 +15,7 @@ from verificacion_acreditacion.application.commands import (
     AprobarVerificacionProveedor,
     RechazarVerificacionProveedor,
     AcreditarProveedor,
+    RevocarAcreditacionProveedor,
 )
 from verificacion_acreditacion.application.handlers import CommandHandler
 from verificacion_acreditacion.infrastructure import database as db_module
@@ -28,9 +29,13 @@ from verificacion_acreditacion.interfaces.api.schemas import (
     AprobarVerificacionRequest,
     RechazarVerificacionRequest,
     AcreditarProveedorRequest,
+    RevocarAcreditacionRequest,
     ProveedorResponse,
 )
 from verificacion_acreditacion.domain.exceptions import VerificacionError
+from verificacion_acreditacion.infrastructure.fake_external_validation_adapter import (
+    FakeExternalValidationAdapter,
+)
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -52,6 +57,9 @@ def _to_response(proveedor) -> ProveedorResponse:
     )
 
 
+_external_validation = FakeExternalValidationAdapter()
+
+
 @router.post(
     "/verificaciones",
     response_model=ProveedorResponse,
@@ -70,7 +78,7 @@ def iniciar_verificacion(
     def _run():
         uow = SqlAlchemyUnitOfWork()
         outbox = SqlAlchemyOutboxStore()
-        handler = CommandHandler(uow, outbox)
+        handler = CommandHandler(uow, outbox, _external_validation)
         cmd = IniciarVerificacionProveedor(
             proveedor_id=request.proveedor_id,
             correlation_id=request.correlation_id,
@@ -113,7 +121,7 @@ def aprobar_verificacion(
         # usamos verificacion_id como proveedor_id para el demo local).
         uow = SqlAlchemyUnitOfWork()
         outbox = SqlAlchemyOutboxStore()
-        handler = CommandHandler(uow, outbox)
+        handler = CommandHandler(uow, outbox, _external_validation)
         cmd = AprobarVerificacionProveedor(
             proveedor_id=verificacion_id,
             correlation_id=request.correlation_id,
@@ -152,7 +160,7 @@ def rechazar_verificacion(
     def _run():
         uow = SqlAlchemyUnitOfWork()
         outbox = SqlAlchemyOutboxStore()
-        handler = CommandHandler(uow, outbox)
+        handler = CommandHandler(uow, outbox, _external_validation)
         cmd = RechazarVerificacionProveedor(
             proveedor_id=verificacion_id,
             motivo=request.motivo,
@@ -192,7 +200,7 @@ def acreditar_proveedor(
     def _run():
         uow = SqlAlchemyUnitOfWork()
         outbox = SqlAlchemyOutboxStore()
-        handler = CommandHandler(uow, outbox)
+        handler = CommandHandler(uow, outbox, _external_validation)
         cmd = AcreditarProveedor(
             proveedor_id=request.proveedor_id,
             correlation_id=request.correlation_id,
@@ -224,3 +232,71 @@ def obtener_estado_proveedor(proveedor_id: uuid.UUID, db: Session = Depends(get_
     if proveedor is None:
         raise HTTPException(status_code=404, detail="Proveedor no encontrado")
     return _to_response(proveedor)
+
+
+@router.post(
+    "/acreditaciones/{acreditacion_id}/revocar",
+    response_model=ProveedorResponse,
+)
+def revocar_acreditacion(
+    acreditacion_id: uuid.UUID,
+    request: RevocarAcreditacionRequest,
+    db: Session = Depends(get_db),
+):
+    key = request.idempotency_key or IdempotencyService.compute_key(
+        "RevocarAcreditacionProveedor",
+        {"acreditacion_id": str(acreditacion_id)},
+        request.correlation_id,
+    )
+    idempotency = IdempotencyService(db)
+
+    def _run():
+        uow = SqlAlchemyUnitOfWork()
+        outbox = SqlAlchemyOutboxStore()
+        handler = CommandHandler(uow, outbox, _external_validation)
+        # En el demo local usamos acreditacion_id como proveedor_id.
+        cmd = RevocarAcreditacionProveedor(
+            proveedor_id=acreditacion_id,
+            acreditacion_id=request.acreditacion_id,
+            correlation_id=request.correlation_id,
+        )
+        with uow:
+            outbox.bind(uow.session)
+            proveedor = handler.handle_revocar_acreditacion(cmd)
+        proveedor.limpiar_eventos()
+        return proveedor
+
+    try:
+        result = idempotency.check_or_run(key, "RevocarAcreditacionProveedor", _run)
+    except VerificacionError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
+
+    if isinstance(result, dict):
+        return JSONResponse(content=result, status_code=200)
+    return _to_response(result)
+
+
+class DependenciaExternaEstadoRequest(BaseModel):
+    disponible: bool
+
+
+@router.post("/debug/dependencia-externa")
+def controlar_dependencia_externa(request: DependenciaExternaEstadoRequest):
+    """Endpoint de utilidad para demos.
+
+    Permite marcar la dependencia externa de validación como disponible o caída,
+    para probar el flujo de reintentos de la Saga orquestada.
+    """
+    if request.disponible:
+        _external_validation.marcar_disponible()
+    else:
+        _external_validation.marcar_caida()
+
+    return {
+        "disponible": _external_validation.esta_disponible(),
+        "detail": (
+            "Dependencia externa marcada como disponible"
+            if request.disponible
+            else "Dependencia externa marcada como caída"
+        ),
+    }

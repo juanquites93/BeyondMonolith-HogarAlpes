@@ -41,6 +41,11 @@ class SeleccionarProveedorRequest(BaseModel):
     idempotency_key: Optional[str] = None
 
 
+class RevertirSeleccionProveedorRequest(BaseModel):
+    correlation_id: Optional[str] = None
+    idempotency_key: Optional[str] = None
+
+
 class TrabajoResponse(BaseModel):
     trabajo_id: uuid.UUID
     cliente_id: uuid.UUID

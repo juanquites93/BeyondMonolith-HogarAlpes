@@ -15,6 +15,7 @@ from marketplace_asignacion.domain.events import (
     TrabajoSolicitado,
     TrabajoPublicado,
     ProveedorSeleccionado,
+    SeleccionProveedorRevertida,
 )
 
 
@@ -93,3 +94,34 @@ def test_seleccionar_proveedor_acreditado_exitoso():
     evento = trabajo.eventos[-1]
     assert isinstance(evento, ProveedorSeleccionado)
     assert evento.proveedor_id == proveedor_id
+
+
+def test_revertir_seleccion_proveedor_vuelve_a_publicado():
+    trabajo = Trabajo(
+        cliente_id=uuid.uuid4(),
+        ubicacion=Ubicacion(direccion="Calle 123", ciudad="Bogotá", pais="CO"),
+        alcance=Alcance(descripcion="Reparación", categoria="Plomería"),
+    )
+    trabajo.solicitar()
+    trabajo.publicar()
+    proveedor_id = uuid.uuid4()
+    trabajo.seleccionar_proveedor(proveedor_id=proveedor_id, acreditado=True)
+    trabajo.limpiar_eventos()
+    trabajo.revertir_seleccion_proveedor()
+    assert trabajo.estado == EstadoTrabajo.PUBLICADO
+    assert trabajo.proveedor_seleccionado_id is None
+    evento = trabajo.eventos[-1]
+    assert isinstance(evento, SeleccionProveedorRevertida)
+    assert evento.proveedor_id == proveedor_id
+
+
+def test_no_se_puede_revertir_seleccion_si_no_esta_seleccionado():
+    trabajo = Trabajo(
+        cliente_id=uuid.uuid4(),
+        ubicacion=Ubicacion(direccion="Calle 123", ciudad="Bogotá", pais="CO"),
+        alcance=Alcance(descripcion="Reparación", categoria="Plomería"),
+    )
+    trabajo.solicitar()
+    trabajo.publicar()
+    with pytest.raises(EstadoInvalidoError):
+        trabajo.revertir_seleccion_proveedor()

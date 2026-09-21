@@ -167,6 +167,36 @@ services:
       timeout: 5s
       retries: 5
 
+  orquestador:
+    build: ./ms-orquestador
+    container_name: hogar_alpes_orquestador
+    ports:
+      - "8004:8004"
+    environment:
+      - PULSAR_SERVICE_URL=pulsar://pulsar:6650
+      - PULSAR_SUBSCRIPTION=orquestador-saga-sub
+      - PULSAR_EVENTOS_MARKETPLACE=persistent://hogar/alpes/marketplace.eventos
+      - PULSAR_EVENTOS_VERIFICACION=persistent://hogar/alpes/verificacion.eventos
+      - PULSAR_EVENTOS_COTIZACION=persistent://hogar/alpes/cotizaciones.eventos
+      - PULSAR_EVENTOS_NOTIFICACION=persistent://hogar/alpes/notificaciones.eventos
+      - PULSAR_VERIFICACION_COMANDOS=persistent://hogar/alpes/verificacion.comandos
+      - PULSAR_COTIZACION_COMANDOS=persistent://hogar/alpes/cotizaciones.comandos
+      - PULSAR_NOTIFICACION_COMANDOS=persistent://hogar/alpes/notificaciones.comandos
+      - DATABASE_URL=postgresql://hogar:alpes@postgres:5432/orquestador_db
+      - MARKETPLACE_URL=http://marketplace:8000
+      - SAGA_MAX_RETRIES=3
+      - SAGA_RETRY_DELAY_SECONDS=10
+    depends_on:
+      pulsar-init:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8004/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   pulsardata:
   pulsarconf:

@@ -65,4 +65,8 @@ class SqlAlchemyOutboxStore(OutboxStore):
             base["moneda"] = evento.moneda
         if hasattr(evento, "descripcion"):
             base["descripcion"] = evento.descripcion
+        if hasattr(evento, "cancelada_en"):
+            base["cancelada_en"] = (
+                evento.cancelada_en.isoformat() if evento.cancelada_en else None
+            )
         return base

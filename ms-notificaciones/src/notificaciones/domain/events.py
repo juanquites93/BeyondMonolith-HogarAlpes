@@ -31,6 +31,7 @@ class NotificacionEnviada(DomainEvent):
     notificacion_id: uuid.UUID = None
     destinatario_id: str = None
     canal: str = None
+    trabajo_id: Optional[str] = None
     enviada_en: datetime = field(default_factory=datetime.utcnow)
 
 
@@ -39,4 +40,14 @@ class NotificacionFallida(DomainEvent):
     notificacion_id: uuid.UUID = None
     destinatario_id: str = None
     canal: str = None
+    trabajo_id: Optional[str] = None
     motivo: Optional[str] = None
+
+
+@dataclass
+class NotificacionCancelada(DomainEvent):
+    notificacion_id: uuid.UUID = None
+    destinatario_id: str = None
+    canal: str = None
+    trabajo_id: Optional[str] = None
+    cancelada_en: datetime = field(default_factory=datetime.utcnow)

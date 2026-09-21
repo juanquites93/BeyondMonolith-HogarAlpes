@@ -76,3 +76,10 @@ class AlcanceCambiado(DomainEvent):
     trabajo_id: uuid.UUID = None
     nuevo_alcance: Optional[Alcance] = None
     razon: Optional[str] = None
+
+
+@dataclass
+class SeleccionProveedorRevertida(DomainEvent):
+    trabajo_id: uuid.UUID = None
+    proveedor_id: uuid.UUID = None
+    revertida_en: datetime = field(default_factory=datetime.utcnow)

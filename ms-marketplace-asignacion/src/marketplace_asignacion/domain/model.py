@@ -9,6 +9,7 @@ from marketplace_asignacion.domain.events import (
     TrabajoPublicado,
     ProveedorSeleccionado,
     AlcanceCambiado,
+    SeleccionProveedorRevertida,
 )
 from marketplace_asignacion.domain.value_objects import (
     Ubicacion,
@@ -112,3 +113,20 @@ class Trabajo:
         )
         self._aplicar_evento(evento)
         # Extensión: podría revertir estado a SOLICITADO o PUBLICADO según reglas de negocio
+
+    def revertir_seleccion_proveedor(
+        self, correlation_id: Optional[str] = None
+    ) -> None:
+        if self.estado != EstadoTrabajo.PROVEEDOR_SELECCIONADO:
+            raise EstadoInvalidoError(
+                f"No se puede revertir la selección en estado {self.estado.value}"
+            )
+        proveedor_id = self.proveedor_seleccionado_id
+        self.proveedor_seleccionado_id = None
+        self.estado = EstadoTrabajo.PUBLICADO
+        evento = SeleccionProveedorRevertida(
+            trabajo_id=self.id,
+            proveedor_id=proveedor_id,
+            correlation_id=correlation_id,
+        )
+        self._aplicar_evento(evento)

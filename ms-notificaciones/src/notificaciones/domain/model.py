@@ -8,6 +8,7 @@ from notificaciones.domain.events import (
     NotificacionSolicitada,
     NotificacionEnviada,
     NotificacionFallida,
+    NotificacionCancelada,
 )
 from notificaciones.domain.value_objects import (
     Destinatario,
@@ -68,6 +69,7 @@ class Notificacion:
             notificacion_id=self.id,
             destinatario_id=self.destinatario.id if self.destinatario else None,
             canal=self.canal.value,
+            trabajo_id=self.trabajo_id,
             correlation_id=correlation_id,
         )
         self._aplicar_evento(evento)
@@ -83,7 +85,29 @@ class Notificacion:
             notificacion_id=self.id,
             destinatario_id=self.destinatario.id if self.destinatario else None,
             canal=self.canal.value,
+            trabajo_id=self.trabajo_id,
             motivo=motivo,
+            correlation_id=correlation_id,
+        )
+        self._aplicar_evento(evento)
+
+    def cancelar(self, correlation_id: Optional[str] = None) -> None:
+        if self.estado == EstadoNotificacion.CANCELADA:
+            return
+        if self.estado not in (
+            EstadoNotificacion.PENDIENTE,
+            EstadoNotificacion.ENVIADA,
+            EstadoNotificacion.FALLIDA,
+        ):
+            raise EstadoInvalidoError(
+                f"No se puede cancelar una notificacion en estado {self.estado.value}"
+            )
+        self.estado = EstadoNotificacion.CANCELADA
+        evento = NotificacionCancelada(
+            notificacion_id=self.id,
+            destinatario_id=self.destinatario.id if self.destinatario else None,
+            canal=self.canal.value,
+            trabajo_id=self.trabajo_id,
             correlation_id=correlation_id,
         )
         self._aplicar_evento(evento)

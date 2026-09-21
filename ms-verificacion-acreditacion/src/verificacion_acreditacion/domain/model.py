@@ -13,10 +13,12 @@ from verificacion_acreditacion.domain.value_objects import (
 from verificacion_acreditacion.domain.events import (
     DomainEvent,
     VerificacionProveedorIniciada,
+    VerificacionPendiente,
     VerificacionProveedorAprobada,
     VerificacionProveedorRechazada,
     ProveedorAcreditado,
     ProveedorNoAcreditado,
+    AcreditacionRevocada,
 )
 from verificacion_acreditacion.domain.exceptions import (
     EstadoInvalidoError,
@@ -44,7 +46,9 @@ class Proveedor:
         evento.aggregate_id = self.id
         self._eventos.append(evento)
 
-    def iniciar_verificacion(self, correlation_id: Optional[str] = None) -> None:
+    def iniciar_verificacion(
+        self, trabajo_id: Optional[str] = None, correlation_id: Optional[str] = None
+    ) -> None:
         if self.estado_verificacion != EstadoVerificacion.PENDIENTE:
             raise EstadoInvalidoError(
                 f"No se puede iniciar verificación en estado {self.estado_verificacion.value}"
@@ -53,6 +57,27 @@ class Proveedor:
         evento = VerificacionProveedorIniciada(
             verificacion_id=uuid.uuid4(),
             proveedor_id=self.id,
+            trabajo_id=trabajo_id,
+            correlation_id=correlation_id,
+        )
+        self._aplicar_evento(evento)
+
+    def marcar_verificacion_pendiente(
+        self,
+        trabajo_id: Optional[str] = None,
+        motivo: Optional[str] = None,
+        correlation_id: Optional[str] = None,
+    ) -> None:
+        if self.estado_verificacion == EstadoVerificacion.APROBADA:
+            raise VerificacionYaResueltaError("La verificación ya fue aprobada.")
+        if self.estado_verificacion == EstadoVerificacion.RECHAZADA:
+            raise VerificacionYaResueltaError("La verificación ya fue rechazada.")
+        self.estado_verificacion = EstadoVerificacion.PENDIENTE
+        evento = VerificacionPendiente(
+            verificacion_id=uuid.uuid4(),
+            proveedor_id=self.id,
+            trabajo_id=trabajo_id,
+            motivo=motivo,
             correlation_id=correlation_id,
         )
         self._aplicar_evento(evento)
@@ -107,6 +132,23 @@ class Proveedor:
             proveedor_id=self.id,
             acreditacion_id=uuid.uuid4(),
             motivo=motivo,
+            correlation_id=correlation_id,
+        )
+        self._aplicar_evento(evento)
+
+    def revocar_acreditacion(
+        self,
+        acreditacion_id: Optional[uuid.UUID] = None,
+        correlation_id: Optional[str] = None,
+    ) -> None:
+        if self.estado_acreditacion != EstadoAcreditacion.ACREDITADO:
+            raise EstadoInvalidoError(
+                f"No se puede revocar la acreditación en estado {self.estado_acreditacion.value}"
+            )
+        self.estado_acreditacion = EstadoAcreditacion.NO_ACREDITADO
+        evento = AcreditacionRevocada(
+            proveedor_id=self.id,
+            acreditacion_id=acreditacion_id or uuid.uuid4(),
             correlation_id=correlation_id,
         )
         self._aplicar_evento(evento)

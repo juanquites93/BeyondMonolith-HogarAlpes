@@ -20,14 +20,8 @@ _EVENT_TOPIC_MAP: Dict[str, str] = {
     "TrabajoSolicitado": settings.PULSAR_PRODUCER_TOPIC,
     "TrabajoPublicado": settings.PULSAR_PRODUCER_TOPIC,
     "ProveedorSeleccionado": settings.PULSAR_PRODUCER_TOPIC,
+    "SeleccionProveedorRevertida": settings.PULSAR_PRODUCER_TOPIC,
     "AlcanceCambiado": settings.PULSAR_PRODUCER_TOPIC,
-    # Verificación y Acreditación
-    "ProveedorSeleccionadoParaValidacion": settings.PULSAR_VERIFICACION_TOPIC,
-    # Cotizaciones
-    "GenerarCotizacionCommand": settings.PULSAR_COTIZACIONES_TOPIC,
-    # Notificaciones
-    "NotificarProveedorAsignadoCommand": settings.PULSAR_NOTIFICACIONES_TOPIC,
-    "NotificarClienteProveedorAsignadoCommand": settings.PULSAR_NOTIFICACIONES_TOPIC,
     # Broadcast compartidos
     "ProveedorAsignadoAlTrabajo": settings.PULSAR_PRODUCER_TOPIC,
     "TrabajoActualizado": settings.PULSAR_PRODUCER_TOPIC,

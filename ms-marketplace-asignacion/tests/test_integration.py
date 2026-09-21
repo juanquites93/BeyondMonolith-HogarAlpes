@@ -63,13 +63,7 @@ def test_publicar_trabajo_transiciona_estado_y_genera_eventos_integracion(client
 
     # Evento de dominio
     assert any(o.event_type == "TrabajoPublicado" for o in outbox)
-    # Eventos de integración
-    assert any(o.event_type == "GenerarCotizacionCommand" for o in outbox)
-    cotizacion = [o for o in outbox if o.event_type == "GenerarCotizacionCommand"][0]
-    assert cotizacion.payload["trabajo_id"] == tid
-    assert cotizacion.payload["ubicacion"]["ciudad"] == "Bogotá"
-    assert cotizacion.payload["alcance"]["categoria"] == "Pintura"
-
+    # Evento de broadcast (la generación de cotización ahora la orquesta ms-orquestador)
     assert any(o.event_type == "TrabajoActualizado" for o in outbox)
     actualizado = [o for o in outbox if o.event_type == "TrabajoActualizado"][0]
     assert actualizado.payload["estado_anterior"] == "SOLICITADO"
@@ -125,12 +119,11 @@ def test_seleccionar_proveedor_genera_eventos_integracion(client, acreditar_prov
     assert r4.status_code == 200
 
     db = db_module.SessionLocal()
-    # ProveedorSeleccionadoParaValidacion tiene aggregate_id=proveedor_id, no tid
     outbox = db.query(OutboxORM).all()
 
-    # Verificación
+    # Evento de dominio que dispara la Saga en el orquestador
     assert any(
-        o.event_type == "ProveedorSeleccionadoParaValidacion"
+        o.event_type == "ProveedorSeleccionado"
         and o.payload.get("trabajo_id") == str(tid)
         for o in outbox
     )
@@ -142,33 +135,16 @@ def test_seleccionar_proveedor_genera_eventos_integracion(client, acreditar_prov
         for o in outbox
     )
 
-    # Notificaciones
-    assert any(
-        o.event_type == "NotificarProveedorAsignadoCommand"
-        and o.payload.get("trabajo_id") == str(tid)
-        for o in outbox
+    # Los comandos hacia verificación, cotización y notificaciones ahora los
+    # emite ms-orquestador, no marketplace.
+    assert not any(
+        o.event_type == "ProveedorSeleccionadoParaValidacion" for o in outbox
     )
-    notif_prov = [
-        o
-        for o in outbox
-        if o.event_type == "NotificarProveedorAsignadoCommand"
-        and o.payload.get("trabajo_id") == str(tid)
-    ][0]
-    assert notif_prov.payload["proveedor_id"] == str(proveedor_id)
-    assert notif_prov.payload["detalles_trabajo"]["categoria"] == "Pintura"
-
-    assert any(
-        o.event_type == "NotificarClienteProveedorAsignadoCommand"
-        and o.payload.get("trabajo_id") == str(tid)
-        for o in outbox
+    assert not any(o.event_type == "GenerarCotizacionCommand" for o in outbox)
+    assert not any(o.event_type == "NotificarProveedorAsignadoCommand" for o in outbox)
+    assert not any(
+        o.event_type == "NotificarClienteProveedorAsignadoCommand" for o in outbox
     )
-    notif_cli = [
-        o
-        for o in outbox
-        if o.event_type == "NotificarClienteProveedorAsignadoCommand"
-        and o.payload.get("trabajo_id") == str(tid)
-    ][0]
-    assert notif_cli.payload["cliente_id"] == r1.json()["cliente_id"]
 
     db.close()
 

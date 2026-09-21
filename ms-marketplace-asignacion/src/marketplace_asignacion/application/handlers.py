@@ -5,15 +5,12 @@ from marketplace_asignacion.application.commands import (
     SolicitarTrabajo,
     PublicarTrabajo,
     SeleccionarProveedor,
+    RevertirSeleccionProveedor,
 )
 from marketplace_asignacion.application.unit_of_work import UnitOfWork
 from marketplace_asignacion.application.outbox_port import OutboxStore
 from marketplace_asignacion.application.integration_events import (
-    ProveedorSeleccionadoParaValidacion,
-    GenerarCotizacionCommand,
     ProveedorAsignadoAlTrabajo,
-    NotificarProveedorAsignadoCommand,
-    NotificarClienteProveedorAsignadoCommand,
     TrabajoActualizado,
 )
 from marketplace_asignacion.domain.model import Trabajo
@@ -74,30 +71,6 @@ class CommandHandler:
         self._uow.trabajos.update(trabajo)
         self._outbox.store(trabajo.eventos)
 
-        # ── Integración: Cotizaciones ──────────────────────────────
-        cotizacion_cmd = GenerarCotizacionCommand(
-            correlation_id=cmd.correlation_id,
-            aggregate_id=trabajo.id,
-            trabajo_id=trabajo.id,
-            cliente_id=trabajo.cliente_id,
-            ubicacion={
-                "direccion": trabajo.ubicacion.direccion,
-                "ciudad": trabajo.ubicacion.ciudad,
-                "pais": trabajo.ubicacion.pais,
-                "codigo_postal": trabajo.ubicacion.codigo_postal,
-            }
-            if trabajo.ubicacion
-            else None,
-            alcance={
-                "descripcion": trabajo.alcance.descripcion,
-                "categoria": trabajo.alcance.categoria,
-                "notas": trabajo.alcance.notas,
-            }
-            if trabajo.alcance
-            else None,
-        )
-        self._outbox.store([cotizacion_cmd])
-
         # ── Integración: Broadcast estado actualizado ───────────────
         actualizado = TrabajoActualizado(
             correlation_id=cmd.correlation_id,
@@ -115,7 +88,6 @@ class CommandHandler:
                 "trabajo_id": str(trabajo.id),
                 "correlation_id": cmd.correlation_id,
                 "eventos_integracion": [
-                    "GenerarCotizacionCommand",
                     "TrabajoActualizado",
                 ],
             },
@@ -134,16 +106,9 @@ class CommandHandler:
         )
         self._outbox.store(trabajo.eventos)
 
-        # ── Integración: Verificación y Acreditación ───────────────
-        evento_validacion = ProveedorSeleccionadoParaValidacion(
-            correlation_id=cmd.correlation_id,
-            aggregate_id=cmd.proveedor_id,
-            proveedor_id=cmd.proveedor_id,
-            trabajo_id=cmd.trabajo_id,
-        )
-        self._outbox.store([evento_validacion])
-
         # ── Integración: Broadcast proveedor asignado ──────────────
+        # La coordinación con verificación, cotización y notificaciones ahora
+        # la realiza el orquestador centralizado (ms-orquestador) mediante Saga.
         asignado = ProveedorAsignadoAlTrabajo(
             correlation_id=cmd.correlation_id,
             aggregate_id=cmd.trabajo_id,
@@ -153,33 +118,6 @@ class CommandHandler:
         )
         self._outbox.store([asignado])
 
-        # ── Integración: Notificaciones ────────────────────────────
-        notificar_proveedor = NotificarProveedorAsignadoCommand(
-            correlation_id=cmd.correlation_id,
-            aggregate_id=cmd.proveedor_id,
-            proveedor_id=cmd.proveedor_id,
-            trabajo_id=cmd.trabajo_id,
-            cliente_id=trabajo.cliente_id,
-            detalles_trabajo={
-                "descripcion": trabajo.alcance.descripcion if trabajo.alcance else None,
-                "categoria": trabajo.alcance.categoria if trabajo.alcance else None,
-                "ubicacion": {
-                    "direccion": trabajo.ubicacion.direccion,
-                    "ciudad": trabajo.ubicacion.ciudad,
-                }
-                if trabajo.ubicacion
-                else None,
-            },
-        )
-        notificar_cliente = NotificarClienteProveedorAsignadoCommand(
-            correlation_id=cmd.correlation_id,
-            aggregate_id=trabajo.id,
-            cliente_id=trabajo.cliente_id,
-            trabajo_id=cmd.trabajo_id,
-            proveedor_id=cmd.proveedor_id,
-        )
-        self._outbox.store([notificar_proveedor, notificar_cliente])
-
         logger.info(
             "Proveedor seleccionado",
             extra={
@@ -187,11 +125,29 @@ class CommandHandler:
                 "proveedor_id": str(cmd.proveedor_id),
                 "correlation_id": cmd.correlation_id,
                 "eventos_integracion": [
-                    "ProveedorSeleccionadoParaValidacion",
                     "ProveedorAsignadoAlTrabajo",
-                    "NotificarProveedorAsignadoCommand",
-                    "NotificarClienteProveedorAsignadoCommand",
                 ],
+            },
+        )
+        return trabajo
+
+    def handle_revertir_seleccion_proveedor(
+        self, cmd: RevertirSeleccionProveedor
+    ) -> Trabajo:
+        servicio = AsignacionService(
+            trabajo_repo=self._uow.trabajos,
+            acreditacion=self._acreditacion,
+        )
+        trabajo = servicio.revertir_seleccion_proveedor(
+            trabajo_id=cmd.trabajo_id,
+            correlation_id=cmd.correlation_id,
+        )
+        self._outbox.store(trabajo.eventos)
+        logger.info(
+            "Selección de proveedor revertida",
+            extra={
+                "trabajo_id": str(trabajo.id),
+                "correlation_id": cmd.correlation_id,
             },
         )
         return trabajo

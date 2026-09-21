@@ -123,6 +123,7 @@ mkdir -p /data/postgres/marketplace
 mkdir -p /data/postgres/verificacion
 mkdir -p /data/postgres/cotizacion
 mkdir -p /data/postgres/notificaciones
+mkdir -p /data/postgres/orquestador
 
 # Ajustar permisos para contenedores (Pulsar usa uid 10000)
 chown -R 10000:10000 /data/pulsar

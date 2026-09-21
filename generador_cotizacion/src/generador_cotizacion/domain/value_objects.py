@@ -7,3 +7,4 @@ class EstadoCotizacion(str, Enum):
     ENVIADA = "ENVIADA"
     ACEPTADA = "ACEPTADA"
     RECHAZADA = "RECHAZADA"
+    CANCELADA = "CANCELADA"
