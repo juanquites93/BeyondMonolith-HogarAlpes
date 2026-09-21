@@ -19,6 +19,19 @@ logger = logging.getLogger(__name__)
 
 _pasarela = PasarelaSimulada()
 
+# Bandera compartida: True mientras el hilo de abajo esta conectado y
+# suscrito a Pulsar. La lee el endpoint /ready para saber si esta replica
+# puede atender trafico real (no cambia nada del procesamiento de mensajes).
+_consumidor_pulsar_activo = False
+
+
+def consumidor_esta_listo() -> bool:
+    """True si no hace falta Pulsar (PULSAR_SERVICE_URL vacio) o si el
+    consumidor sigue conectado y suscrito."""
+    if not settings.PULSAR_SERVICE_URL:
+        return True
+    return _consumidor_pulsar_activo
+
 
 def procesar_mensaje(datos: bytes) -> None:
     """Traduce el sobre JSON del comando entrante y ejecuta el manejador.
@@ -96,20 +109,28 @@ def iniciar_consumidor_en_hilo() -> threading.Thread | None:
     import pulsar
 
     def _bucle() -> None:
+        global _consumidor_pulsar_activo
         client = pulsar.Client(settings.PULSAR_SERVICE_URL)
         consumidor = client.subscribe(
             settings.TOPICO_COMANDOS,
             subscription_name=settings.PULSAR_SUSCRIPCION,
             consumer_type=pulsar.ConsumerType.Shared,
         )
-        while True:
-            mensaje = consumidor.receive()
-            try:
-                procesar_mensaje(mensaje.data())
-                consumidor.acknowledge(mensaje)
-            except Exception:
-                logger.exception("Fallo procesando un comando; se hace nack.")
-                consumidor.negative_acknowledge(mensaje)
+        _consumidor_pulsar_activo = True
+        try:
+            while True:
+                mensaje = consumidor.receive()
+                try:
+                    procesar_mensaje(mensaje.data())
+                    consumidor.acknowledge(mensaje)
+                except Exception:
+                    logger.exception("Fallo procesando un comando; se hace nack.")
+                    consumidor.negative_acknowledge(mensaje)
+        finally:
+            # Si receive()/acknowledge() lanzan por una desconexion real del
+            # broker, marcamos la replica como no lista antes de que el hilo
+            # muera (mismo comportamiento de antes, solo se agrega la senal).
+            _consumidor_pulsar_activo = False
 
     hilo = threading.Thread(target=_bucle, name="consumidor-pulsar", daemon=True)
     hilo.start()
