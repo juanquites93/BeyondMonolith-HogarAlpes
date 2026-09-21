@@ -146,6 +146,27 @@ services:
       timeout: 5s
       retries: 5
 
+  bff:
+    build: ./bff
+    container_name: hogar_alpes_bff
+    ports:
+      - "8010:8010"
+    environment:
+      - MARKETPLACE_URL=http://marketplace:8000
+      - VERIFICACION_URL=http://verificacion:8001
+      - COTIZACION_URL=http://cotizacion:8002
+      - NOTIFICACIONES_URL=http://notificaciones:8000
+    depends_on:
+      - marketplace
+      - verificacion
+      - cotizacion
+      - notificaciones
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8010/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   pulsardata:
   pulsarconf:
