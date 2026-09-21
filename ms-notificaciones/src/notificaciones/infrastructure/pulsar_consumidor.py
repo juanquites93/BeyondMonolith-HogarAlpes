@@ -78,13 +78,23 @@ def procesar_mensaje(datos: bytes) -> None:
             logger.warning("messageType desconocido: %s (mensaje descartado)", tipo)
             return None
 
+    if not idempotency_key:
+        # El sobre no trae idempotencyKey ni messageId: se deriva una clave
+        # del propio contenido del comando, para no quedar sin proteccion
+        # contra duplicados (dos entregas del mismo mensaje producen el
+        # mismo hash y la segunda se detecta como repetida).
+        idempotency_key = IdempotencyService.compute_key(
+            tipo or "desconocido", payload, correlation_id
+        )
+        logger.info(
+            "Sin idempotencyKey/messageId en el sobre; se usa una clave "
+            "derivada del contenido del comando."
+        )
+
     session_idem = db_module.SessionLocal()
     try:
         idempotencia = IdempotencyService(session_idem)
-        if idempotency_key:
-            idempotencia.check_or_run(idempotency_key, tipo or "desconocido", _run)
-        else:
-            _run()
+        idempotencia.check_or_run(idempotency_key, tipo or "desconocido", _run)
     finally:
         session_idem.close()
 
