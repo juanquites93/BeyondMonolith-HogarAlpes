@@ -92,6 +92,50 @@ for p in notificaciones_1 notificaciones_2 notificaciones_3; do
 done
 ```
 
+## Generar carga
+
+Hay dos scripts porque este servicio recibe tráfico por **dos vías distintas**
+(ver sección 3 del diseño): HTTP directo (poco) y eventos de Pulsar (lo
+importante). Cada script cubre una:
+
+### HTTP (k6) — `carga.js`
+
+Le pega al balanceador (`http://localhost:18000`), no a una réplica directa.
+
+```bash
+# Instalar k6 una sola vez: https://k6.io/docs/get-started/installation/
+
+# Ejemplo "linea base" (ilustrativo, ajusta segun tu seccion 3):
+BASE_URL=http://localhost:18000 TARGET_RPS=5 HOLD_DURATION=5m k6 run carga.js
+
+# Ejemplo "4x":
+BASE_URL=http://localhost:18000 TARGET_RPS=20 HOLD_DURATION=10m k6 run carga.js
+```
+
+### Eventos de Pulsar — `carga_eventos.py`
+
+k6 no puede generar el tráfico de eventos real de este servicio (usa el
+protocolo binario de Pulsar, no HTTP). Este script publica directamente al
+tópico del experimento, con el mismo formato de comando que ya procesa
+`pulsar_consumidor.py`.
+
+```bash
+# Desde el entorno virtual del proyecto (ya tiene pulsar-client instalado):
+cd ..
+python3 -m venv .venv && source .venv/bin/activate  # si no lo tienes ya
+pip install -r requirements.txt
+cd experimento
+
+# Ejemplo "linea base":
+RATE=2 DURATION_SECONDS=300 python3 carga_eventos.py
+
+# Ejemplo "4x":
+RATE=8 DURATION_SECONDS=600 python3 carga_eventos.py
+```
+
+Corre los dos scripts **al mismo tiempo** (en dos terminales) durante la
+misma ventana, para que la prueba refleje ambos tipos de tráfico a la vez.
+
 ## Apagar todo y borrar los datos del experimento
 
 ```bash
