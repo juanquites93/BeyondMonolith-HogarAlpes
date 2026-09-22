@@ -1,0 +1,8 @@
+NAME                           IMAGE                          COMMAND                   SERVICE            CREATED          STATUS                      PORTS
+experimento_nginx              nginx:1.27-alpine              "/docker-entrypoint.…"    nginx              41 minutes ago   Up 39 minutes               0.0.0.0:18000->80/tcp
+experimento_notificaciones_1   experimento-notificaciones_1   "/bin/sh -c 'uvicorn…"    notificaciones_1   41 minutes ago   Up 36 minutes               8000/tcp
+experimento_notificaciones_2   experimento-notificaciones_2   "/bin/sh -c 'uvicorn…"    notificaciones_2   41 minutes ago   Up 23 minutes               8000/tcp
+experimento_notificaciones_3   experimento-notificaciones_3   "/bin/sh -c 'uvicorn…"    notificaciones_3   41 minutes ago   Up 36 minutes               8000/tcp
+experimento_postgres           postgres:16-alpine             "docker-entrypoint.s…"    postgres           41 minutes ago   Up 41 minutes (healthy)     0.0.0.0:15432->5432/tcp
+experimento_pulsar             apachepulsar/pulsar:3.2.0      "bin/pulsar standalo…"    pulsar             41 minutes ago   Up 41 minutes (healthy)     0.0.0.0:16650->6650/tcp, 0.0.0.0:18080->8080/tcp
+experimento_pulsar_init        apachepulsar/pulsar:3.2.0      "bash -c '\n  echo 'E…"   pulsar-init        41 minutes ago   Exited (0) 37 minutes ago   

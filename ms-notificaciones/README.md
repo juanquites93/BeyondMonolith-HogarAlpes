@@ -62,8 +62,6 @@ uvicorn ms-notificaciones.main:app --port 8001
 
 ### 3.4. Ejecución conectada al cluster de Pulsar
 
-El cluster **no lo despliega este servicio**: lo despliega el equipo una sola vez, en otro punto. Mientras `PULSAR_SERVICE_URL` esté vacío, el servicio arranca igual y solo sirve las queries HTTP (no consume comandos). Para conectarlo:
-
 ```bash
 export PULSAR_SERVICE_URL="pulsar://localhost:6650"
 uvicorn ms-notificaciones.main:app --port 8001

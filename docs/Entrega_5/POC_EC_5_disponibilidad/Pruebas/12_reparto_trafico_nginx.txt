@@ -1,0 +1,32 @@
+Evidencia: reparto de trafico entre replicas via header X-Instance-Id
+======================================================================
+Comando repetido: curl -s -D - http://localhost:18000/ready -o /dev/null | grep -i x-instance-id
+
+--- Antes de la falla (30 solicitudes, las 3 replicas sanas) ---
+10 x-instance-id: notificaciones-1
+10 x-instance-id: notificaciones-2
+10 x-instance-id: notificaciones-3
+
+--- Justo antes de apagar notificaciones_2 (muestreo continuo, 30 seg) ---
+12 x-instance-id: notificaciones-1
+ 6 x-instance-id: notificaciones-2
+12 x-instance-id: notificaciones-3
+
+--- Inmediatamente despues de "docker compose stop notificaciones_2" (30 seg) ---
+13 x-instance-id: notificaciones-1
+17 x-instance-id: notificaciones-3
+(cero solicitudes a notificaciones-2: Nginx dejo de enviarle trafico de inmediato)
+
+--- Durante toda la ventana de falla, ~45s (40 solicitudes) ---
+18 x-instance-id: notificaciones-1
+22 x-instance-id: notificaciones-3
+(cero solicitudes a notificaciones-2 durante toda la ventana)
+
+--- Despues de "docker compose start notificaciones_2" (30 seg) ---
+11 x-instance-id: notificaciones-1
+ 9 x-instance-id: notificaciones-2
+10 x-instance-id: notificaciones-3
+(notificaciones-2 vuelve a recibir trafico sola, sin tocar Nginx)
+
+Verificacion /ready de notificaciones_2 justo despues de reiniciarla:
+{"status":"ok","checks":{"database":"ok","pulsar":"ok"}}

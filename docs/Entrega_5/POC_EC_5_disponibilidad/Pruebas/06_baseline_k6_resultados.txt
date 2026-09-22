@@ -1,0 +1,19 @@
+Resultados finales de k6 - fase linea base (1x)
+BASE_URL=http://localhost:18000 ENDPOINT=/ready TARGET_RPS=10 RAMP_DURATION=15s HOLD_DURATION=50s
+
+checks_total.......: 1126    17.322647/s
+checks_succeeded...: 100.00% 1126 out of 1126
+checks_failed......: 0.00%   0 out of 1126
+
+  codigo 2xx: OK
+  trae X-Instance-Id: OK
+
+HTTP
+http_req_duration..............: avg=360.05ms min=4.49ms med=39.04ms max=4.42s p(90)=1.19s p(95)=2.26s
+http_req_failed................: 0.00%  0 out of 563
+http_reqs......................: 563    8.661324/s
+
+EXECUTION
+dropped_iterations.............: 11     0.169227/s
+iterations.....................: 563    8.661324/s
+vus_max........................: 31     min=20       max=31

@@ -1,0 +1,15 @@
+--- notificaciones_1 ---
+notificaciones_eventos_consumidos_total{resultado="ok"} 833.0
+notificaciones_eventos_consumidos_total{resultado="fallido"} 0.0
+http_requests_total{handler="/ready",method="GET",status="2xx"} 2738.0
+http_requests_total{handler="/metrics",method="GET",status="2xx"} 2.0
+--- notificaciones_2 ---
+notificaciones_eventos_consumidos_total{resultado="ok"} 0.0
+notificaciones_eventos_consumidos_total{resultado="fallido"} 0.0
+http_requests_total{handler="/ready",method="GET",status="2xx"} 10.0
+http_requests_total{handler="/metrics",method="GET",status="2xx"} 1.0
+--- notificaciones_3 ---
+notificaciones_eventos_consumidos_total{resultado="ok"} 836.0
+notificaciones_eventos_consumidos_total{resultado="fallido"} 0.0
+http_requests_total{handler="/ready",method="GET",status="2xx"} 2736.0
+http_requests_total{handler="/metrics",method="GET",status="2xx"} 2.0
